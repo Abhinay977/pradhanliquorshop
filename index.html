@@ -73,17 +73,17 @@
     .notice{border-left:4px solid var(--accent);background:#1a1622;padding:10px 12px;border-radius:10px}
     .link-card{display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:12px;border:1px solid #233147;background:#0c1220}
 
-    /* Chips */
-    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-    .chip{padding:8px 12px;border-radius:999px;border:1px solid #243047;background:#0e1728;color:#d1d5db;font-size:12px;cursor:pointer}
-    .chip:active{transform:translateY(1px)}
-
     /* Age Gate */
     .modal{position:fixed;inset:0;background:rgba(3,10,18,.88);backdrop-filter:blur(6px);display:grid;place-items:center;padding:20px;z-index:10000}
     .modal .card{animation:pop .18s ease-out}
     @keyframes pop{from{transform:scale(.98);opacity:.7}to{transform:scale(1);opacity:1}}
     .hidden{display:none}
     body.gatelock{overflow:hidden}
+
+    /* Chips */
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .chip{padding:8px 12px;border-radius:999px;border:1px solid #243047;background:#0e1728;color:#d1d5db;font-size:12px;cursor:pointer}
+    .chip:active{transform:translateY(1px)}
 
     /* Sticky mobile action bar */
     .action-bar{position:fixed;left:0;right:0;bottom:0;background:#0c1220;border-top:1px solid var(--border);display:none;z-index:45}
@@ -106,9 +106,7 @@
     "name":"Pradhan Liquor Shop",
     "image":"/assets/cover.jpg",
     "address":{"@type":"PostalAddress","addressLocality":"Your Village","addressRegion":"Your State","addressCountry":"IN"},
-    "openingHoursSpecification":[
-      {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"08:00","closes":"20:00"}
-    ],
+    "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"08:00","closes":"20:00"}],
     "telephone":"+91 9239087045",
     "url":"https://example.com",
     "priceRange":"₹₹"
@@ -130,7 +128,7 @@
     </div>
   </div>
 
-  <!-- Page content (gated) -->
+  <!-- Page -->
   <div id="page" aria-hidden="true">
     <header>
       <div class="container nav">
@@ -145,6 +143,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#products">Products</a></li>
             <li><a href="#order">Order</a></li>
+            <li><a href="#owner">Owner</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
         </nav>
@@ -182,15 +181,12 @@
       </div>
     </main>
 
-    <!-- About Us (single-owner, no “team”, no removed facilities mentioned) -->
+    <!-- About Us -->
     <section id="about" class="container" style="margin-top:28px">
       <div class="grid">
         <div class="span-12 card">
           <h2>About Us</h2>
-          <p>
-            Pradhan Liquor Shop is a small, owner-run store serving our neighbourhood since 2021. 
-            We keep a focused selection of popular spirits, wine and beer — neatly arranged with clear labels, so you can find what you want quickly.
-          </p>
+          <p>Pradhan Liquor Shop is an owner-run store serving our neighbourhood since 2021. We keep a focused selection of popular spirits, wine and beer — neatly arranged with clear labels, so you can find what you want quickly.</p>
           <ul>
             <li>Open daily: <strong>08:00 AM – 08:00 PM</strong></li>
             <li>Clean, well-lit shelves and quick counter service</li>
@@ -199,17 +195,15 @@
             <li>Bulk / party quantities accepted — billed in store</li>
             <li>Enquiries via call or WhatsApp; purchase happens in store</li>
           </ul>
-          <p class="small" style="margin-top:8px">
-            Note: We do not sell online or ship. Government ID is checked in-store before purchase.
-          </p>
+          <p class="small" style="margin-top:8px">Note: We do not sell online or ship. Government ID is checked in-store before purchase.</p>
         </div>
       </div>
     </section>
 
-    <!-- ORDER -->
+    <!-- Order -->
     <section id="order" class="container" style="margin-top:28px">
       <div class="grid">
-        <div class="span-12 card">
+        <div class="span-8 card">
           <h2>Order Request (Adults Only)</h2>
           <p class="small">Prepare a list and send it on WhatsApp. Final purchase is <strong>in-store</strong> with ID verification.</p>
 
@@ -231,10 +225,46 @@
             <button id="sendOrderBtn" class="btn">Send to WhatsApp</button>
           </div>
         </div>
+
+        <!-- Owner Panel (always visible) -->
+        <div id="owner" class="span-4 card">
+          <h2>Owner Panel</h2>
+          <p class="small">Manage items on this device. Enter code to unlock editing.</p>
+
+          <!-- Locked view -->
+          <div id="ownerLocked">
+            <label class="small" for="ownerCode">Owner code</label>
+            <div class="flex" style="gap:8px">
+              <input id="ownerCode" class="input" type="password" placeholder="••••••" aria-label="Owner code" style="flex:1"/>
+              <button id="unlockBtn" class="btn" type="button">Unlock</button>
+            </div>
+            <p id="lockMsg" class="small" style="margin-top:6px;color:#fca5a5"></p>
+          </div>
+
+          <!-- Unlocked form -->
+          <div id="ownerPanel" class="hidden">
+            <form id="productForm">
+              <input class="input" id="pName" placeholder="Name (e.g., Old Monk Rum)" required style="margin-top:8px"/>
+              <input class="input" id="pBrand" placeholder="Brand (e.g., Mohan Meakin)"/>
+              <input class="input" id="pCategory" placeholder="Category (Whisky/Wine/Beer/Gin/etc.)"/>
+              <input class="input" id="pSize" placeholder="Pack size (e.g., 750 ml)"/>
+              <input class="input" id="pABV" placeholder="ABV (e.g., 42.8%)"/>
+              <input class="input" id="pImage" placeholder="Image URL (optional)"/>
+              <label class="small" style="display:block;margin-top:6px">
+                <input type="checkbox" id="pAvailable" checked /> Available
+              </label>
+              <div class="flex">
+                <button class="btn" type="submit">Add / Update</button>
+                <button class="btn secondary" id="resetForm" type="button">Clear</button>
+              </div>
+              <p class="small" style="margin:8px 0 0">Tip: Click ✏️ to edit, 🗑️ to remove.</p>
+            </form>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- PRODUCTS -->
+    <!-- Products -->
     <section id="products" class="container" style="margin-top:28px">
       <div class="grid">
         <div class="span-12 card">
@@ -245,6 +275,7 @@
       </div>
     </section>
 
+    <!-- Contact -->
     <section id="contact" class="container" style="margin-top:28px">
       <div class="grid">
         <div class="span-6 card">
@@ -267,6 +298,7 @@
       </div>
     </section>
 
+    <!-- Policy -->
     <section id="policy" class="container" style="margin-top:28px">
       <div class="card">
         <h2>Responsible Service Policy</h2>
@@ -294,38 +326,7 @@
         <a class="btn secondary" href="https://maps.google.com/?q=5JGQ%2B7W2%20Rhenak%2C%20Sikkim" target="_blank" rel="noopener">🧭 Directions</a>
       </div>
     </div>
-  </div><!-- /#page -->
-
-  <template id="ownerTpl">
-    <div class="card owner-col">
-      <h2>Owner Panel</h2>
-      <p class="small">On-device only. For multi-device sync, add a backend later.</p>
-      <div id="ownerLocked">
-        <label class="small" for="ownerCode">Enter owner code</label>
-        <input id="ownerCode" class="input" type="password" placeholder="••••••" aria-label="Owner code"/>
-        <button id="unlockBtn" class="btn" style="margin-top:8px">Unlock</button>
-        <p id="lockMsg" class="small" style="margin-top:6px;color:#fca5a5"></p>
-      </div>
-      <div id="ownerPanel" class="hidden">
-        <form id="productForm">
-          <input class="input" id="pName" placeholder="Name (e.g., Old Monk Rum)" required style="margin-top:8px"/>
-          <input class="input" id="pBrand" placeholder="Brand (e.g., Mohan Meakin)"/>
-          <input class="input" id="pCategory" placeholder="Category (Whisky/Wine/Beer/Gin/etc.)"/>
-          <input class="input" id="pSize" placeholder="Pack size (e.g., 750 ml)"/>
-          <input class="input" id="pABV" placeholder="ABV (e.g., 42.8%)"/>
-          <input class="input" id="pImage" placeholder="Image URL (optional)"/>
-          <label class="small" style="display:block;margin-top:6px">
-            <input type="checkbox" id="pAvailable" checked /> Available
-          </label>
-          <div class="flex">
-            <button class="btn" type="submit">Add / Update</button>
-            <button class="btn secondary" id="resetForm" type="button">Clear</button>
-          </div>
-          <p class="small" style="margin:8px 0 0">Tip: Click ✏️ to edit, 🗑️ to remove.</p>
-        </form>
-      </div>
-    </div>
-  </template>
+  </div>
 
   <noscript>
     <div style="position:fixed;inset:0;background:#0b0f17;color:#fff;display:grid;place-items:center;z-index:20000;padding:16px;text-align:center">
@@ -337,7 +338,7 @@
   </noscript>
 
   <script>
-    /* ---------- Mobile nav ---------- */
+    /* Mobile nav */
     (function(){
       const btn=document.getElementById('menuBtn');
       const nav=document.getElementById('primaryNav');
@@ -346,7 +347,7 @@
       nav.addEventListener('click', e=>{ if(e.target.tagName==='A' && nav.classList.contains('open')) nav.classList.remove('open'); });
     })();
 
-    /* ---------- Storage helper ---------- */
+    /* Storage helper (localStorage with cookie fallback) */
     const Store=(function(){
       function setCookie(k,v,days){ const d=new Date(); d.setTime(d.getTime()+days*864e5); document.cookie=`${k}=${v};expires=${d.toUTCString()};path=/;SameSite=Lax`; }
       function getCookie(k){ return (document.cookie.split('; ').find(r=>r.startsWith(k+'='))||'').split('=')[1]||null; }
@@ -357,7 +358,7 @@
       }
     })();
 
-    /* ---------- Age Gate ---------- */
+    /* Age Gate */
     (function(){
       const KEY='pls_age_ok_v2';
       const gate=document.getElementById('ageGate');
@@ -383,38 +384,41 @@
       yes.addEventListener('click',()=>{ Store.set(KEY,'1'); hideGate(); });
       no.addEventListener('click',()=>{ Store.remove(KEY); alert('Sorry, this site is for adults only.'); location.href='https://www.google.com'; });
 
-      // Re-lock for testing: Shift+Y
       window.addEventListener('keydown',e=>{ if(e.key==='Y'&&e.shiftKey){ Store.remove(KEY); showGate(); }});
     })();
 
-    /* ---------- Footer year ---------- */
+    /* Footer year */
     (function(){ const y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear(); })();
 
-    /* ---------- Open/Closed status ---------- */
+    /* Open/Closed status */
     (function(){
-      const OPEN_H=8, CLOSE_H=20; // 08:00–20:00 local time
+      const OPEN_H=8, CLOSE_H=20; // 08:00–20:00
       const badge=document.getElementById('hoursBadge');
       const status=document.getElementById('openStatus');
       function fmt(h){ const hour=((h+11)%12)+1; const ampm=h<12?'AM':'PM'; return `${String(hour).padStart(2,'0')}:00 ${ampm}`;}
       function refresh(){
         if(badge) badge.textContent=`${fmt(OPEN_H)} – ${fmt(CLOSE_H===24?0:CLOSE_H)}`;
-        const now=new Date(); const h=now.getHours();
-        const open = h>=OPEN_H && h < CLOSE_H;
-        if(status){
-          status.textContent = open ? 'Open now' : 'Closed';
-          status.className = open ? 'badge ok' : 'badge err';
-        }
+        const h=new Date().getHours();
+        const open = h>=OPEN_H && h<CLOSE_H;
+        if(status){ status.textContent=open?'Open now':'Closed'; status.className=open?'badge ok':'badge err'; }
       }
-      refresh(); setInterval(refresh, 60*1000);
+      refresh(); setInterval(refresh,60*1000);
     })();
 
-    /* ---------- Product Store + Owner Mode ---------- */
+    /* Product Store + Owner Panel */
     (function(){
       const KEY='pls_products_v1';
       const OWNER_KEY='pls_owner_ok_v1';
       const OWNER_CODE='OWNER2025';
 
       const grid=document.getElementById('productsGrid');
+      const ownerLocked=document.getElementById('ownerLocked');
+      const ownerPanel=document.getElementById('ownerPanel');
+      const unlockBtn=document.getElementById('unlockBtn');
+      const ownerCode=document.getElementById('ownerCode');
+      const lockMsg=document.getElementById('lockMsg');
+      const form=document.getElementById('productForm');
+      const resetBtn=document.getElementById('resetForm');
 
       function seed(){
         const sample=[
@@ -461,103 +465,68 @@
           data.id=crypto.randomUUID(); items.push(data);
         }
         save(items); render();
+        if(form) form.reset();
       }
-      function remove(id){ const items=load().filter(x=>x.id!==id); save(items); render(); }
-
-      // Owner panel injection
-      function mountOwnerPanel(){
-        const mount=document.getElementById('ownerMount');
-        const tpl=document.getElementById('ownerTpl');
-        if(!mount || !tpl || mount.firstChild) return;
-        mount.appendChild(tpl.content.cloneNode(true));
-        wireOwnerPanel();
-      }
-      function unmountOwnerPanel(){ const mount=document.getElementById('ownerMount'); if(mount) mount.innerHTML=''; }
-
-      function wireOwnerPanel(){
-        const ownerLocked=document.getElementById('ownerLocked');
-        const ownerPanel=document.getElementById('ownerPanel');
-        const form=document.getElementById('productForm');
-        const resetBtn=document.getElementById('resetForm');
-
-        function updateOwnerUI(){
-          const ok=localStorage.getItem(OWNER_KEY)==='1';
-          ownerLocked?.classList.toggle('hidden', ok);
-          ownerPanel?.classList.toggle('hidden', !ok);
-          render();
-        }
-
-        document.getElementById('unlockBtn')?.addEventListener('click',()=>{
-          const code=document.getElementById('ownerCode').value;
-          const msg=document.getElementById('lockMsg');
-          if(code===OWNER_CODE){ localStorage.setItem(OWNER_KEY,'1'); msg.textContent=''; updateOwnerUI(); }
-          else msg.textContent='Wrong code.';
-        });
-
-        form?.addEventListener('submit',(e)=>{
-          e.preventDefault();
-          const data={
-            id: form.dataset.editId||'',
-            name: document.getElementById('pName').value.trim(),
-            brand: document.getElementById('pBrand').value.trim(),
-            category: document.getElementById('pCategory').value.trim(),
-            size: document.getElementById('pSize').value.trim(),
-            abv: document.getElementById('pABV').value.trim(),
-            image: document.getElementById('pImage').value.trim(),
-            available: document.getElementById('pAvailable').checked
-          };
-          if(!data.name){ alert('Name is required'); return; }
-          addOrUpdate(data);
-          delete form.dataset.editId;
-          form.reset();
-        });
-
-        resetBtn?.addEventListener('click',()=>{ form.reset(); delete form.dataset.editId; });
-
-        document.getElementById('productsGrid')?.addEventListener('click',(e)=>{
-          const t=e.target; const card=t.closest('.item'); if(!card) return;
-          const id=card.getAttribute('data-id');
-          if(t.matches('[data-del]')){ if(confirm('Delete this item?')) remove(id); }
-          if(t.matches('[data-edit]')){
-            const items=load();
-            const item=items.find(x=>x.id===id); if(!item) return;
-            document.getElementById('pName').value=item.name||'';
-            document.getElementById('pBrand').value=item.brand||'';
-            document.getElementById('pCategory').value=item.category||'';
-            document.getElementById('pSize').value=item.size||'';
-            document.getElementById('pABV').value=item.abv||'';
-            document.getElementById('pImage').value=item.image||'';
-            document.getElementById('pAvailable').checked=!!item.available;
-            form.dataset.editId=item.id;
-            window.location.hash='#order';
-          }
-        });
-
-        updateOwnerUI();
+      function remove(id){
+        const items=load().filter(x=>x.id!==id);
+        save(items); render();
       }
 
-      // Owner mode toggles (hidden)
-      function enableOwner(){ try{ sessionStorage.setItem('pls_owner_mode','1'); }catch(_){ } mountOwnerPanel(); }
-      function disableOwner(){ try{ sessionStorage.removeItem('pls_owner_mode'); }catch(_){ } unmountOwnerPanel(); }
+      function updateOwnerUI(){
+        const ok=localStorage.getItem(OWNER_KEY)==='1';
+        ownerLocked?.classList.toggle('hidden', ok);
+        ownerPanel?.classList.toggle('hidden', !ok);
+        render();
+      }
 
-      if(location.hash==='#owner'){ enableOwner(); }
-      try{ if(sessionStorage.getItem('pls_owner_mode')==='1') enableOwner(); }catch(_){}
+      unlockBtn?.addEventListener('click',()=>{
+        if(ownerCode.value===OWNER_CODE){ localStorage.setItem(OWNER_KEY,'1'); lockMsg.textContent=''; updateOwnerUI(); }
+        else { lockMsg.textContent='Wrong code.'; }
+      });
 
-      window.addEventListener('keydown',e=>{
-        if(e.shiftKey && e.key.toLowerCase()==='o'){
-          if(sessionStorage.getItem('pls_owner_mode')==='1'){ disableOwner(); } else { enableOwner(); }
+      form?.addEventListener('submit',e=>{
+        e.preventDefault();
+        const data={
+          id: form.dataset.editId||'',
+          name: document.getElementById('pName').value.trim(),
+          brand: document.getElementById('pBrand').value.trim(),
+          category: document.getElementById('pCategory').value.trim(),
+          size: document.getElementById('pSize').value.trim(),
+          abv: document.getElementById('pABV').value.trim(),
+          image: document.getElementById('pImage').value.trim(),
+          available: document.getElementById('pAvailable').checked
+        };
+        if(!data.name){ alert('Name is required'); return; }
+        addOrUpdate(data);
+        delete form.dataset.editId;
+      });
+
+      resetBtn?.addEventListener('click',()=>{ form.reset(); delete form.dataset.editId; });
+
+      document.getElementById('productsGrid')?.addEventListener('click',e=>{
+        const t=e.target; const card=t.closest('.item'); if(!card) return;
+        const id=card.getAttribute('data-id');
+        if(t.matches('[data-del]')){ if(confirm('Delete this item?')) remove(id); }
+        if(t.matches('[data-edit]')){
+          const items=load();
+          const item=items.find(x=>x.id===id); if(!item) return;
+          document.getElementById('pName').value=item.name||'';
+          document.getElementById('pBrand').value=item.brand||'';
+          document.getElementById('pCategory').value=item.category||'';
+          document.getElementById('pSize').value=item.size||'';
+          document.getElementById('pABV').value=item.abv||'';
+          document.getElementById('pImage').value=item.image||'';
+          document.getElementById('pAvailable').checked=!!item.available;
+          form.dataset.editId=item.id;
+          window.location.hash='#owner';
         }
       });
-      const logo=document.querySelector('.logo'); let hold;
-      function press(){ clearTimeout(hold); hold=setTimeout(()=>enableOwner(),1200); }
-      function release(){ clearTimeout(hold); }
-      logo?.addEventListener('mousedown',press); logo?.addEventListener('mouseup',release); logo?.addEventListener('mouseleave',release);
-      logo?.addEventListener('touchstart',press,{passive:true}); logo?.addEventListener('touchend',release);
 
-      render();
+      // Init
+      updateOwnerUI();
     })();
 
-    /* ---------- Order list + WhatsApp ---------- */
+    /* Order list + WhatsApp */
     (function(){
       const ORDER_KEY='pls_order_v1';
       const PRODUCTS_KEY='pls_products_v1';
