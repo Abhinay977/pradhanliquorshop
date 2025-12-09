@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pradhan Liquor Shop • Since 2021</title>
+  <meta name="description" content="Local licensed liquor shop – selection of spirits, wine & beer. In-store purchase only." />
+  <meta name="theme-color" content="#111827" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0f17;--panel:#111827;--muted:#9ca3af;--text:#e5e7eb;--brand:#38bdf8;--accent:#f59e0b;--ok:#22c55e;--error:#ef4444;
+      --ring:#60a5fa;--border:#1f2937;--header-h:64px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,Helvetica,sans-serif;scroll-behavior:smooth}
+    :focus-visible{outline:3px solid var(--ring);outline-offset:2px;border-radius:8px}
+    a{color:var(--brand);text-decoration:none}
+    a:hover{text-decoration:underline}
+    img{max-width:100%;display:block}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+
+    /* Header / Nav */
+    header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg, rgba(11,15,23,.96), rgba(11,15,23,.72));backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:var(--header-h)}
+    .logo{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.3px;cursor:pointer}
+    .logo-badge{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--brand),#6366f1);display:grid;place-items:center;font-weight:800}
+    nav ul{display:flex;gap:14px;list-style:none;margin:0;padding:0}
+    .btn{display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:#031318;border:0;padding:12px 16px;border-radius:12px;font-weight:700;cursor:pointer}
+    .btn.secondary{background:#1f2937;color:var(--text);border:1px solid #2b3647}
+    .btn.icon{padding:10px 12px}
+    .btn:active{transform:translateY(1px)}
+    .menu-btn{display:none}
+    @media (max-width:780px){
+      .menu-btn{display:inline-flex}
+      nav ul{position:absolute;left:0;right:0;top:calc(var(--header-h));background:#0c1220;border-bottom:1px solid var(--border);padding:12px 16px;display:none;flex-direction:column;gap:8px}
+      nav ul.open{display:flex}
+      .hide-sm{display:none}
+    }
+
+    /* Sections */
+    section, main{scroll-margin-top:calc(var(--header-h) + 10px)}
+    .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
+    .hero-wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:center;padding:48px 24px}
+    .hero h1{font-size:clamp(28px,4vw,48px);margin:0 0 12px}
+    .hero p{color:var(--muted);margin:0 0 20px}
+    .card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    .span-4{grid-column:span 4}.span-6{grid-column:span 6}.span-8{grid-column:span 8}.span-12{grid-column:span 12}
+    @media (max-width:900px){.hero-wrap{grid-template-columns:1fr}.span-4,.span-6,.span-8,.span-12{grid-column:span 12}}
+
+    h2{font-size:clamp(22px,2.8vw,32px);margin:0 0 12px}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#0f172a;border:1px solid #243047;color:var(--muted);font-size:12px}
+    .catalog{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+    .item{background:var(--panel);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+    .item img{width:100%;height:160px;object-fit:cover;background:#0a0e16}
+    .item .body{padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+    .item .tag{font-size:12px;color:#cbd5e1}
+    .badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid #264159;background:#0c1627}
+    .badge.ok{border-color:#1f5130;background:#0f1f16}
+    .badge.err{border-color:#4b2a2a;background:#1a0f0f}
+    .flex{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media (max-width:700px){.split{grid-template-columns:1fr}}
+    footer{border-top:1px solid var(--border);margin-top:40px}
+    .small{font-size:13px;color:var(--muted)}
+
+    .input{background:#0f172a;border:1px solid #263246;color:var(--text);padding:12px;border-radius:12px;width:100%}
+    .input::placeholder{color:#7a8699}
+    .notice{border-left:4px solid var(--accent);background:#1a1622;padding:10px 12px;border-radius:10px}
+    .link-card{display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:12px;border:1px solid #233147;background:#0c1220}
+
+    /* Chips */
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .chip{padding:8px 12px;border-radius:999px;border:1px solid #243047;background:#0e1728;color:#d1d5db;font-size:12px;cursor:pointer}
+    .chip:active{transform:translateY(1px)}
+
+    /* Age Gate */
+    .modal{position:fixed;inset:0;background:rgba(3,10,18,.88);backdrop-filter:blur(6px);display:grid;place-items:center;padding:20px;z-index:10000}
+    .modal .card{animation:pop .18s ease-out}
+    @keyframes pop{from{transform:scale(.98);opacity:.7}to{transform:scale(1);opacity:1}}
+    .hidden{display:none}
+    body.gatelock{overflow:hidden}
+
+    /* Sticky mobile action bar */
+    .action-bar{position:fixed;left:0;right:0;bottom:0;background:#0c1220;border-top:1px solid var(--border);display:none;z-index:45}
+    .action-wrap{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:10px 12px}
+    @media (max-width:780px){.action-bar{display:block}}
+
+    /* Mobile spacing */
+    @media(max-width:600px){
+      .btn{width:100%;justify-content:center}
+      .hero-wrap{padding:28px 12px}
+      .container{padding:16px}
+    }
+  </style>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"LiquorStore",
+    "name":"Pradhan Liquor Shop",
+    "image":"/assets/cover.jpg",
+    "address":{"@type":"PostalAddress","addressLocality":"Your Village","addressRegion":"Your State","addressCountry":"IN"},
+    "openingHoursSpecification":[
+      {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"08:00","closes":"20:00"}
+    ],
+    "telephone":"+91 9239087045",
+    "url":"https://example.com",
+    "priceRange":"₹₹"
+  }
+  </script>
+</head>
+<body>
+  <!-- Age Gate -->
+  <div id="ageGate" class="modal" role="dialog" aria-modal="true" aria-labelledby="ageTitle" aria-describedby="ageDesc">
+    <div class="card" style="max-width:520px">
+      <div class="pill">Age Verification</div>
+      <h2 id="ageTitle">Are you of legal drinking age in your state?</h2>
+      <p id="ageDesc" class="small">Access is for adults only. In-store purchase with government ID verification.</p>
+      <div class="split" style="margin-top:10px">
+        <button class="btn" id="btnYes" aria-label="Yes, I am of legal age">Yes, I am</button>
+        <button class="btn secondary" id="btnNo" aria-label="No, I am not">No</button>
+      </div>
+      <p class="small" style="margin-top:10px">By continuing, you accept our policy below.</p>
+    </div>
+  </div>
+
+  <!-- Page content (gated) -->
+  <div id="page" aria-hidden="true">
+    <header>
+      <div class="container nav">
+        <a class="logo" href="#home" aria-label="Pradhan Liquor Shop home">
+          <span class="logo-badge">PL</span>
+          <span>Pradhan Liquor Shop</span>
+        </a>
+        <nav aria-label="Main">
+          <button class="btn secondary icon menu-btn" id="menuBtn" aria-expanded="false" aria-controls="primaryNav">☰</button>
+          <ul id="primaryNav">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#order">Order</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+        <a class="btn hide-sm" href="#contact">Call / WhatsApp</a>
+      </div>
+    </header>
+
+    <main id="home" class="hero">
+      <div class="container hero-wrap">
+        <section>
+          <span class="pill">Since 2021 • Licensed Retailer</span>
+          <h1>Your trusted local store for spirits, wine & beer</h1>
+          <p>Browse our selection and visit in person to purchase. We do <strong>not</strong> sell online.</p>
+          <div class="flex" style="margin-top:10px">
+            <a class="btn" href="#order">Order List</a>
+            <a class="btn secondary" href="#contact">Get Directions</a>
+          </div>
+        </section>
+        <aside>
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1200&auto=format&fit=crop" alt="Store bottles display" width="640" height="240" loading="lazy" style="width:100%;height:240px;object-fit:cover;border-radius:12px" />
+            <div class="grid" style="margin-top:12px">
+              <div class="span-6">
+                <div class="link-card">
+                  <span id="openStatus">Open today</span>
+                  <span class="badge" id="hoursBadge">08:00 AM – 08:00 PM</span>
+                </div>
+              </div>
+              <div class="span-6">
+                <a class="link-card" href="tel:+919239087045"><span>Call Us</span><span class="badge">+91 9239087045</span></a>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <!-- About Us (single-owner, no “team”, no removed facilities mentioned) -->
+    <section id="about" class="container" style="margin-top:28px">
+      <div class="grid">
+        <div class="span-12 card">
+          <h2>About Us</h2>
+          <p>
+            Pradhan Liquor Shop is a small, owner-run store serving our neighbourhood since 2021. 
+            We keep a focused selection of popular spirits, wine and beer — neatly arranged with clear labels, so you can find what you want quickly.
+          </p>
+          <ul>
+            <li>Open daily: <strong>08:00 AM – 08:00 PM</strong></li>
+            <li>Clean, well-lit shelves and quick counter service</li>
+            <li>Chilled storage for select beverages</li>
+            <li>Basic roadside parking nearby</li>
+            <li>Bulk / party quantities accepted — billed in store</li>
+            <li>Enquiries via call or WhatsApp; purchase happens in store</li>
+          </ul>
+          <p class="small" style="margin-top:8px">
+            Note: We do not sell online or ship. Government ID is checked in-store before purchase.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ORDER -->
+    <section id="order" class="container" style="margin-top:28px">
+      <div class="grid">
+        <div class="span-12 card">
+          <h2>Order Request (Adults Only)</h2>
+          <p class="small">Prepare a list and send it on WhatsApp. Final purchase is <strong>in-store</strong> with ID verification.</p>
+
+          <form id="orderForm" class="flex" style="margin-bottom:10px;flex-wrap:wrap;gap:8px">
+            <input id="newItemName" class="input" placeholder="Item name" list="itemNames" required style="flex:2;min-width:180px"/>
+            <datalist id="itemNames"></datalist>
+            <input id="newItemQty" class="input" placeholder="Qty" value="1" inputmode="numeric" style="flex:1;max-width:120px"/>
+            <button id="addItemBtn" class="btn" type="submit">Add</button>
+          </form>
+
+          <div>
+            <span class="small">Quick add:</span>
+            <div id="suggestions" class="chips" aria-live="polite"></div>
+          </div>
+
+          <div id="orderList" style="margin-top:10px"></div>
+          <div class="flex" style="margin-top:10px">
+            <button id="clearOrderBtn" class="btn secondary">Clear List</button>
+            <button id="sendOrderBtn" class="btn">Send to WhatsApp</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section id="products" class="container" style="margin-top:28px">
+      <div class="grid">
+        <div class="span-12 card">
+          <h2>Products</h2>
+          <p class="small">Public view of items in stock. Prices not shown. Sales are <strong>in-store only</strong>.</p>
+          <div id="productsGrid" class="catalog" aria-live="polite" aria-busy="false"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="container" style="margin-top:28px">
+      <div class="grid">
+        <div class="span-6 card">
+          <h2>Contact & Directions</h2>
+          <div class="flex">
+            <a class="btn" href="https://wa.me/919239087045?text=Hi%20Pradhan%20Liquor%20Shop%2C%20please%20share%20today's%20availability." target="_blank" rel="noopener">WhatsApp Us</a>
+            <a class="btn secondary" href="tel:+919239087045">Call: +91 9239087045</a>
+          </div>
+          <p class="small" style="margin:8px 0 0">Address: 5JGQ+7W2, Rhenak, Sikkim</p>
+          <div class="flex" style="margin-top:8px">
+            <a class="btn secondary" href="https://maps.google.com/?q=5JGQ%2B7W2%20Rhenak%2C%20Sikkim" target="_blank" rel="noopener">Get Directions</a>
+          </div>
+        </div>
+        <div class="span-6 card">
+          <h2>Map</h2>
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;border:1px solid #1f2937">
+            <iframe title="Google Map" src="https://www.google.com/maps?q=5JGQ%2B7W2%20Rhenak%2C%20Sikkim&z=16&output=embed" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="policy" class="container" style="margin-top:28px">
+      <div class="card">
+        <h2>Responsible Service Policy</h2>
+        <ul class="small">
+          <li>Access is for adults of legal drinking age (18/21+, as per state rules).</li>
+          <li>Government-issued ID is verified in store before purchase.</li>
+          <li>No online sales. No shipping. In-store purchase only.</li>
+          <li>Service may be refused to intoxicated persons.</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="container" style="padding-bottom:72px">
+      <div class="grid" style="align-items:center">
+        <div class="span-8 small">© <span id="year"></span> Pradhan Liquor Shop • All rights reserved.</div>
+        <div class="span-4 small" style="text-align:right">Made with ♥ in Your Village</div>
+      </div>
+    </footer>
+
+    <!-- Sticky mobile action bar -->
+    <div class="action-bar" aria-hidden="false">
+      <div class="action-wrap container" style="max-width:900px">
+        <a class="btn secondary" href="tel:+919239087045">📞 Call</a>
+        <a class="btn" href="https://wa.me/919239087045?text=Hi%20Pradhan%20Liquor%20Shop" target="_blank" rel="noopener">💬 WhatsApp</a>
+        <a class="btn secondary" href="https://maps.google.com/?q=5JGQ%2B7W2%20Rhenak%2C%20Sikkim" target="_blank" rel="noopener">🧭 Directions</a>
+      </div>
+    </div>
+  </div><!-- /#page -->
+
+  <template id="ownerTpl">
+    <div class="card owner-col">
+      <h2>Owner Panel</h2>
+      <p class="small">On-device only. For multi-device sync, add a backend later.</p>
+      <div id="ownerLocked">
+        <label class="small" for="ownerCode">Enter owner code</label>
+        <input id="ownerCode" class="input" type="password" placeholder="••••••" aria-label="Owner code"/>
+        <button id="unlockBtn" class="btn" style="margin-top:8px">Unlock</button>
+        <p id="lockMsg" class="small" style="margin-top:6px;color:#fca5a5"></p>
+      </div>
+      <div id="ownerPanel" class="hidden">
+        <form id="productForm">
+          <input class="input" id="pName" placeholder="Name (e.g., Old Monk Rum)" required style="margin-top:8px"/>
+          <input class="input" id="pBrand" placeholder="Brand (e.g., Mohan Meakin)"/>
+          <input class="input" id="pCategory" placeholder="Category (Whisky/Wine/Beer/Gin/etc.)"/>
+          <input class="input" id="pSize" placeholder="Pack size (e.g., 750 ml)"/>
+          <input class="input" id="pABV" placeholder="ABV (e.g., 42.8%)"/>
+          <input class="input" id="pImage" placeholder="Image URL (optional)"/>
+          <label class="small" style="display:block;margin-top:6px">
+            <input type="checkbox" id="pAvailable" checked /> Available
+          </label>
+          <div class="flex">
+            <button class="btn" type="submit">Add / Update</button>
+            <button class="btn secondary" id="resetForm" type="button">Clear</button>
+          </div>
+          <p class="small" style="margin:8px 0 0">Tip: Click ✏️ to edit, 🗑️ to remove.</p>
+        </form>
+      </div>
+    </div>
+  </template>
+
+  <noscript>
+    <div style="position:fixed;inset:0;background:#0b0f17;color:#fff;display:grid;place-items:center;z-index:20000;padding:16px;text-align:center">
+      <div class="card" style="max-width:520px">
+        <h2>Enable JavaScript</h2>
+        <p class="small">This site requires JavaScript for age verification. Please enable it to continue.</p>
+      </div>
+    </div>
+  </noscript>
+
+  <script>
+    /* ---------- Mobile nav ---------- */
+    (function(){
+      const btn=document.getElementById('menuBtn');
+      const nav=document.getElementById('primaryNav');
+      if(!btn||!nav) return;
+      btn.addEventListener('click',()=>{ const open=nav.classList.toggle('open'); btn.setAttribute('aria-expanded', String(open)); });
+      nav.addEventListener('click', e=>{ if(e.target.tagName==='A' && nav.classList.contains('open')) nav.classList.remove('open'); });
+    })();
+
+    /* ---------- Storage helper ---------- */
+    const Store=(function(){
+      function setCookie(k,v,days){ const d=new Date(); d.setTime(d.getTime()+days*864e5); document.cookie=`${k}=${v};expires=${d.toUTCString()};path=/;SameSite=Lax`; }
+      function getCookie(k){ return (document.cookie.split('; ').find(r=>r.startsWith(k+'='))||'').split('=')[1]||null; }
+      return {
+        set(k,v){ try{ localStorage.setItem(k,v); }catch(e){ setCookie(k,v,365); } },
+        get(k){ try{ return localStorage.getItem(k) }catch(e){ return getCookie(k) } },
+        remove(k){ try{ localStorage.removeItem(k) }catch(e){ setCookie(k,'',-1) } }
+      }
+    })();
+
+    /* ---------- Age Gate ---------- */
+    (function(){
+      const KEY='pls_age_ok_v2';
+      const gate=document.getElementById('ageGate');
+      const yes=document.getElementById('btnYes');
+      const no=document.getElementById('btnNo');
+      const page=document.getElementById('page');
+      if(!gate||!yes||!no||!page) return;
+
+      function setInert(on){
+        const nodes=[...document.body.children].filter(n=>n!==gate);
+        nodes.forEach(n=>{
+          try{ n.inert=on; }catch(_){}
+          n.style.pointerEvents = on ? 'none' : '';
+          if(n.id==='page'){ n.setAttribute('aria-hidden', on?'true':'false'); }
+        });
+      }
+      function showGate(){ gate.classList.remove('hidden'); document.body.classList.add('gatelock'); setInert(true); setTimeout(()=>yes.focus(),0); window.scrollTo(0,0); }
+      function hideGate(){ gate.classList.add('hidden'); document.body.classList.remove('gatelock'); setInert(false); page.setAttribute('aria-hidden','false'); }
+
+      const ok = Store.get(KEY)==='1';
+      if(ok){ hideGate(); } else { showGate(); }
+
+      yes.addEventListener('click',()=>{ Store.set(KEY,'1'); hideGate(); });
+      no.addEventListener('click',()=>{ Store.remove(KEY); alert('Sorry, this site is for adults only.'); location.href='https://www.google.com'; });
+
+      // Re-lock for testing: Shift+Y
+      window.addEventListener('keydown',e=>{ if(e.key==='Y'&&e.shiftKey){ Store.remove(KEY); showGate(); }});
+    })();
+
+    /* ---------- Footer year ---------- */
+    (function(){ const y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear(); })();
+
+    /* ---------- Open/Closed status ---------- */
+    (function(){
+      const OPEN_H=8, CLOSE_H=20; // 08:00–20:00 local time
+      const badge=document.getElementById('hoursBadge');
+      const status=document.getElementById('openStatus');
+      function fmt(h){ const hour=((h+11)%12)+1; const ampm=h<12?'AM':'PM'; return `${String(hour).padStart(2,'0')}:00 ${ampm}`;}
+      function refresh(){
+        if(badge) badge.textContent=`${fmt(OPEN_H)} – ${fmt(CLOSE_H===24?0:CLOSE_H)}`;
+        const now=new Date(); const h=now.getHours();
+        const open = h>=OPEN_H && h < CLOSE_H;
+        if(status){
+          status.textContent = open ? 'Open now' : 'Closed';
+          status.className = open ? 'badge ok' : 'badge err';
+        }
+      }
+      refresh(); setInterval(refresh, 60*1000);
+    })();
+
+    /* ---------- Product Store + Owner Mode ---------- */
+    (function(){
+      const KEY='pls_products_v1';
+      const OWNER_KEY='pls_owner_ok_v1';
+      const OWNER_CODE='OWNER2025';
+
+      const grid=document.getElementById('productsGrid');
+
+      function seed(){
+        const sample=[
+          {id:crypto.randomUUID(),name:'Signature Rare Whisky',brand:'United Spirits',category:'Whisky',size:'750 ml',abv:'42.8%',available:true,image:'https://images.unsplash.com/photo-1535961658903-6f6f5e9c9c1f?q=80&w=1200&auto=format&fit=crop'},
+          {id:crypto.randomUUID(),name:'Sula Chenin Blanc',brand:'Sula',category:'Wine',size:'750 ml',abv:'12% approx',available:true,image:'https://images.unsplash.com/photo-1542326237-94b1c5a538d8?q=80&w=1200&auto=format&fit=crop'},
+          {id:crypto.randomUUID(),name:'Kingfisher Premium',brand:'UB',category:'Beer',size:'650 ml',abv:'4.8%',available:true,image:'https://images.unsplash.com/photo-1481391393056-5c7b1e4e84b0?q=80&w=1200&auto=format&fit=crop'}
+        ];
+        localStorage.setItem(KEY, JSON.stringify(sample));
+      }
+      function load(){
+        let arr=[]; try{ arr=JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(_){ arr=[]; }
+        if(!arr.length){ seed(); arr=JSON.parse(localStorage.getItem(KEY)||'[]'); }
+        return arr;
+      }
+      function save(arr){ localStorage.setItem(KEY, JSON.stringify(arr)); }
+
+      function render(){
+        const items=load();
+        if(!grid) return;
+        grid.setAttribute('aria-busy','true');
+        grid.innerHTML=items.map(item=>{
+          const badge=item.available?'<span class="badge">Available</span>':'<span class="badge err">Out of stock</span>';
+          const img=item.image?`<img src="${item.image}" alt="${item.name}" loading="lazy">`:`<div style="height:160px;display:grid;place-items:center;background:#0a0e16">📦</div>`;
+          const ownerBtns=(localStorage.getItem(OWNER_KEY)==='1')?'<button class="btn secondary" data-edit="1">✏️ Edit</button><button class="btn secondary" data-del="1">🗑️ Delete</button>':'';
+          return `
+            <article class="item" data-id="${item.id}">
+              ${img}
+              <div class="body">
+                <strong>${item.name}</strong>
+                <span class="tag">${item.brand?item.brand+' • ':''}${item.category||''}${item.size?(' • '+item.size):''}${item.abv?(' • '+item.abv):''}</span>
+                <div class="flex">${badge}${ownerBtns}</div>
+              </div>
+            </article>`;
+        }).join('');
+        grid.setAttribute('aria-busy','false');
+      }
+
+      function addOrUpdate(data){
+        const items=load();
+        if(data.id){
+          const i=items.findIndex(x=>x.id===data.id);
+          if(i>-1) items[i]=data; else items.push(data);
+        }else{
+          data.id=crypto.randomUUID(); items.push(data);
+        }
+        save(items); render();
+      }
+      function remove(id){ const items=load().filter(x=>x.id!==id); save(items); render(); }
+
+      // Owner panel injection
+      function mountOwnerPanel(){
+        const mount=document.getElementById('ownerMount');
+        const tpl=document.getElementById('ownerTpl');
+        if(!mount || !tpl || mount.firstChild) return;
+        mount.appendChild(tpl.content.cloneNode(true));
+        wireOwnerPanel();
+      }
+      function unmountOwnerPanel(){ const mount=document.getElementById('ownerMount'); if(mount) mount.innerHTML=''; }
+
+      function wireOwnerPanel(){
+        const ownerLocked=document.getElementById('ownerLocked');
+        const ownerPanel=document.getElementById('ownerPanel');
+        const form=document.getElementById('productForm');
+        const resetBtn=document.getElementById('resetForm');
+
+        function updateOwnerUI(){
+          const ok=localStorage.getItem(OWNER_KEY)==='1';
+          ownerLocked?.classList.toggle('hidden', ok);
+          ownerPanel?.classList.toggle('hidden', !ok);
+          render();
+        }
+
+        document.getElementById('unlockBtn')?.addEventListener('click',()=>{
+          const code=document.getElementById('ownerCode').value;
+          const msg=document.getElementById('lockMsg');
+          if(code===OWNER_CODE){ localStorage.setItem(OWNER_KEY,'1'); msg.textContent=''; updateOwnerUI(); }
+          else msg.textContent='Wrong code.';
+        });
+
+        form?.addEventListener('submit',(e)=>{
+          e.preventDefault();
+          const data={
+            id: form.dataset.editId||'',
+            name: document.getElementById('pName').value.trim(),
+            brand: document.getElementById('pBrand').value.trim(),
+            category: document.getElementById('pCategory').value.trim(),
+            size: document.getElementById('pSize').value.trim(),
+            abv: document.getElementById('pABV').value.trim(),
+            image: document.getElementById('pImage').value.trim(),
+            available: document.getElementById('pAvailable').checked
+          };
+          if(!data.name){ alert('Name is required'); return; }
+          addOrUpdate(data);
+          delete form.dataset.editId;
+          form.reset();
+        });
+
+        resetBtn?.addEventListener('click',()=>{ form.reset(); delete form.dataset.editId; });
+
+        document.getElementById('productsGrid')?.addEventListener('click',(e)=>{
+          const t=e.target; const card=t.closest('.item'); if(!card) return;
+          const id=card.getAttribute('data-id');
+          if(t.matches('[data-del]')){ if(confirm('Delete this item?')) remove(id); }
+          if(t.matches('[data-edit]')){
+            const items=load();
+            const item=items.find(x=>x.id===id); if(!item) return;
+            document.getElementById('pName').value=item.name||'';
+            document.getElementById('pBrand').value=item.brand||'';
+            document.getElementById('pCategory').value=item.category||'';
+            document.getElementById('pSize').value=item.size||'';
+            document.getElementById('pABV').value=item.abv||'';
+            document.getElementById('pImage').value=item.image||'';
+            document.getElementById('pAvailable').checked=!!item.available;
+            form.dataset.editId=item.id;
+            window.location.hash='#order';
+          }
+        });
+
+        updateOwnerUI();
+      }
+
+      // Owner mode toggles (hidden)
+      function enableOwner(){ try{ sessionStorage.setItem('pls_owner_mode','1'); }catch(_){ } mountOwnerPanel(); }
+      function disableOwner(){ try{ sessionStorage.removeItem('pls_owner_mode'); }catch(_){ } unmountOwnerPanel(); }
+
+      if(location.hash==='#owner'){ enableOwner(); }
+      try{ if(sessionStorage.getItem('pls_owner_mode')==='1') enableOwner(); }catch(_){}
+
+      window.addEventListener('keydown',e=>{
+        if(e.shiftKey && e.key.toLowerCase()==='o'){
+          if(sessionStorage.getItem('pls_owner_mode')==='1'){ disableOwner(); } else { enableOwner(); }
+        }
+      });
+      const logo=document.querySelector('.logo'); let hold;
+      function press(){ clearTimeout(hold); hold=setTimeout(()=>enableOwner(),1200); }
+      function release(){ clearTimeout(hold); }
+      logo?.addEventListener('mousedown',press); logo?.addEventListener('mouseup',release); logo?.addEventListener('mouseleave',release);
+      logo?.addEventListener('touchstart',press,{passive:true}); logo?.addEventListener('touchend',release);
+
+      render();
+    })();
+
+    /* ---------- Order list + WhatsApp ---------- */
+    (function(){
+      const ORDER_KEY='pls_order_v1';
+      const PRODUCTS_KEY='pls_products_v1';
+      const orderList=document.getElementById('orderList');
+      const form=document.getElementById('orderForm');
+      const nameInput=document.getElementById('newItemName');
+      const qtyInput=document.getElementById('newItemQty');
+      const sendBtn=document.getElementById('sendOrderBtn');
+      const clearBtn=document.getElementById('clearOrderBtn');
+      const dataList=document.getElementById('itemNames');
+      const sugg=document.getElementById('suggestions');
+      if(!orderList||!form||!nameInput||!qtyInput||!sendBtn||!dataList||!sugg) return;
+
+      function getProductNames(){
+        try{
+          const arr=JSON.parse(localStorage.getItem(PRODUCTS_KEY)||'[]');
+          return Array.from(new Set(arr.map(x=>x?.name).filter(Boolean))).sort((a,b)=>a.localeCompare(b));
+        }catch(_){ return []; }
+      }
+      function populate(){
+        const names=getProductNames();
+        dataList.innerHTML=names.map(n=>`<option value="${n}"></option>`).join('');
+        sugg.innerHTML=names.slice(0,20).map(n=>`<button type="button" class="chip" data-name="${n}">${n}</button>`).join('');
+      }
+
+      let items=[]; try{ items=JSON.parse(localStorage.getItem(ORDER_KEY)||'[]'); }catch(_){ items=[]; }
+      function save(){ localStorage.setItem(ORDER_KEY, JSON.stringify(items)); }
+      function render(){
+        if(!items.length){ orderList.innerHTML='<p class="small">No items added yet.</p>'; return; }
+        orderList.innerHTML=items.map((x,i)=>`
+          <div class="link-card" data-index="${i}">
+            <div><strong>${x.name}</strong><br><span class="small">Qty: ${x.qty}</span></div>
+            <div class="flex">
+              <button class="btn secondary" data-minus="1" title="Decrease">−</button>
+              <button class="btn secondary" data-plus="1" title="Increase">+</button>
+              <button class="btn secondary" data-del="1" title="Remove">🗑️</button>
+            </div>
+          </div>`).join('');
+      }
+
+      form.addEventListener('submit',e=>{
+        e.preventDefault();
+        const name=(nameInput.value||'').trim();
+        const qty=(qtyInput.value||'1').trim();
+        if(!name) return;
+        const idx=items.findIndex(x=>x.name.toLowerCase()===name.toLowerCase());
+        if(idx>-1){ items[idx].qty=String(Number(items[idx].qty||1)+Number(qty||1)); }
+        else { items.push({name, qty: qty||'1'}); }
+        nameInput.value=''; qtyInput.value='1'; save(); render();
+      });
+
+      sugg.addEventListener('click',e=>{
+        const btn=e.target.closest('[data-name]'); if(!btn) return;
+        const n=btn.getAttribute('data-name');
+        const idx=items.findIndex(x=>x.name.toLowerCase()===n.toLowerCase());
+        if(idx>-1){ items[idx].qty=String(Number(items[idx].qty||1)+1); } else { items.push({name:n, qty:'1'}); }
+        save(); render();
+      });
+
+      orderList.addEventListener('click',e=>{
+        const card=e.target.closest('[data-index]'); if(!card) return;
+        const i=+card.getAttribute('data-index');
+        if(e.target.matches('[data-del]')){ items.splice(i,1); save(); render(); }
+        if(e.target.matches('[data-plus]')){ items[i].qty=String(Number(items[i].qty||1)+1); save(); render(); }
+        if(e.target.matches('[data-minus]')){ items[i].qty=String(Math.max(1, Number(items[i].qty||1)-1)); save(); render(); }
+      });
+
+      clearBtn?.addEventListener('click',()=>{ if(confirm('Clear all items?')){ items=[]; save(); render(); }});
+
+      sendBtn.addEventListener('click',()=>{
+        if(!items.length){ alert('Add items first.'); return; }
+        const text='Order Request (Adults Only):\n'+items.map(x=>`• ${x.name} (Qty: ${x.qty})`).join('\n');
+        const msg=encodeURIComponent(text);
+        window.open(`https://wa.me/919239087045?text=${msg}`,'_blank');
+      });
+
+      populate(); render();
+    })();
+  </script>
+</body>
+</html>
