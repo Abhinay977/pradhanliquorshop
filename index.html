@@ -1002,11 +1002,42 @@
 
         function renderProducts(products = []) {
             window.currentProducts = products; // Cache for owner UX toggle
-            document.getElementById('loading-products').style.display = products.length === 0 ? 'block' : 'none';
+            
+            let productsToRender = products;
+            const loadingMessage = document.getElementById('loading-products');
+            
+            if (productsToRender.length === 0) {
+                productsToRender = [{
+                    id: 'mock-1',
+                    name: 'Royal Blue Premium Vodka',
+                    brand: 'Local Spirits Co.',
+                    category: 'Vodka',
+                    size: '750 ml',
+                    abv: '40.0%',
+                    image: 'ROYAL BLUE.jpeg', // Local file path, assuming it resolves relatively
+                    available: true
+                },
+                {
+                    id: 'mock-2',
+                    name: 'House Special Red Wine',
+                    brand: 'Vineyard Select',
+                    category: 'Wine',
+                    size: '750 ml',
+                    abv: '13.5%',
+                    image: 'https://images.unsplash.com/photo-1596381395013-586e31c2551b?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=160&h=160&fit=crop',
+                    available: false
+                }];
+                loadingMessage.textContent = 'Displaying mock data (Firebase products may be empty or inaccessible).';
+                loadingMessage.style.display = 'block';
+                showToast("Using mock data for product display.", 'accent');
+            } else {
+                loadingMessage.style.display = 'none';
+            }
+
             productGrid.innerHTML = '';
             productNamesDatalist.innerHTML = '';
 
-            products.forEach(product => {
+            productsToRender.forEach(product => {
                 // Update datalist for Order section
                 const option = document.createElement('option');
                 option.value = product.name;
@@ -1017,9 +1048,16 @@
                 card.setAttribute('data-id', product.id);
                 card.id = `product-${product.id}`;
 
-                const imageUrl = (product.image && product.image.startsWith('http'))
-                    ? product.image
-                    : 'https://images.unsplash.com/photo-1574087130635-4673d3283280?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=160&h=160&fit=crop'; // Placeholder image
+                let imageUrl = product.image;
+                // Logic adjustment: If image is present but not HTTP, check if we are rendering mock data.
+                if (product.image && !product.image.startsWith('http')) {
+                    if (productsToRender.length > products.length) { // We are rendering mock data
+                        imageUrl = product.image; // Keep local path for mock data
+                    } else {
+                        // If product comes from Firebase but has no HTTP link, use fallback
+                        imageUrl = 'https://images.unsplash.com/photo-1574087130635-4673d3283280?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=160&h=160&fit=crop';
+                    }
+                }
 
                 card.innerHTML = `
                     <img src="${imageUrl}" alt="${product.name}" loading="lazy" height="160" width="100%">
