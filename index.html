@@ -1,610 +1,1419 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pradhan Liquor Shop • Since 2021</title>
-  <meta name="description" content="Local licensed liquor shop – selection of spirits, wine & beer. In-store purchase only." />
-  <meta name="theme-color" content="#111827" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pradhan Liquor Shop - Your trusted local store for spirits, wine & beer</title>
 
-  <style>
-    :root{
-      --bg:#0b0f17;--panel:#111827;--muted:#9ca3af;--text:#e5e7eb;--brand:#38bdf8;--accent:#f59e0b;--ok:#22c55e;--error:#ef4444;
-      --ring:#60a5fa;--border:#1f2937;--header-h:64px;
+    <!-- SEO & Performance -->
+    <meta name="description" content="Pradhan Liquor Shop (Since 2021). Browse our selection and visit in person to purchase. We do not sell online.">
+    <meta name="theme-color" content="#111827">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LiquorStore",
+      "name": "Pradhan Liquor Shop",
+      "telephone": "+91 9239087045",
+      "url": "https://your-shop-url.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "5JGQ+7W2",
+        "addressLocality": "Rhenak",
+        "addressRegion": "Sikkim",
+        "addressCountry": "IN"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+          ],
+          "opens": "08:00",
+          "closes": "20:00"
+        }
+      ]
     }
-    *{box-sizing:border-box}
-    html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,Helvetica,sans-serif;scroll-behavior:smooth}
-    :focus-visible{outline:3px solid var(--ring);outline-offset:2px;border-radius:8px}
-    a{color:var(--brand);text-decoration:none}
-    a:hover{text-decoration:underline}
-    img{max-width:100%;display:block}
-    .container{max-width:1100px;margin:0 auto;padding:24px}
+    </script>
 
-    /* Header / Nav */
-    header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg, rgba(11,15,23,.96), rgba(11,15,23,.72));backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:var(--header-h)}
-    .logo{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.3px;cursor:pointer}
-    .logo-badge{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--brand),#6366f1);display:grid;place-items:center;font-weight:800}
-    nav ul{display:flex;gap:14px;list-style:none;margin:0;padding:0}
-    .btn{display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:#031318;border:0;padding:12px 16px;border-radius:12px;font-weight:700;cursor:pointer}
-    .btn.secondary{background:#1f2937;color:var(--text);border:1px solid #2b3647}
-    .btn.icon{padding:10px 12px}
-    .btn:active{transform:translateY(1px)}
-    .menu-btn{display:none}
-    @media (max-width:780px){
-      .menu-btn{display:inline-flex}
-      nav ul{position:absolute;left:0;right:0;top:calc(var(--header-h));background:#0c1220;border-bottom:1px solid var(--border);padding:12px 16px;display:none;flex-direction:column;gap:8px}
-      nav ul.open{display:flex}
-      .hide-sm{display:none}
-    }
+    <style>
+        /* Base Colors */
+        :root {
+            --color-bg: #0b0f17;
+            --color-panel: #111827;
+            --color-border: #1f2937;
+            --color-text: #e5e7eb;
+            --color-muted: #9ca3af;
+            --color-brand: #38bdf8;
+            --color-accent: #f59e0b;
+            --color-ok: #22c55e;
+            --color-error: #ef4444;
+            --radius-soft: 12px;
+            --spacing-base: 16px;
+        }
 
-    /* Sections */
-    section, main{scroll-margin-top:calc(var(--header-h) + 10px)}
-    .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
-    .hero-wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:center;padding:48px 24px}
-    .hero h1{font-size:clamp(28px,4vw,48px);margin:0 0 12px}
-    .hero p{color:var(--muted);margin:0 0 20px}
-    .card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px}
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
-    .span-4{grid-column:span 4}.span-6{grid-column:span 6}.span-8{grid-column:span 8}.span-12{grid-column:span 12}
-    @media (max-width:900px){.hero-wrap{grid-template-columns:1fr}.span-4,.span-6,.span-8,.span-12{grid-column:span 12}}
+        /* General Reset & Typography */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        a {
+            color: var(--color-brand);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        a:hover, a:focus {
+            color: var(--color-accent);
+        }
+        h1, h2, h3 {
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.5rem; }
 
-    h2{font-size:clamp(22px,2.8vw,32px);margin:0 0 12px}
-    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#0f172a;border:1px solid #243047;color:var(--muted);font-size:12px}
-    .catalog{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
-    .item{background:var(--panel);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
-    .item img{width:100%;height:160px;object-fit:cover;background:#0a0e16}
-    .item .body{padding:12px 14px;display:flex;flex-direction:column;gap:8px}
-    .item .tag{font-size:12px;color:#cbd5e1}
-    .badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid #264159;background:#0c1627}
-    .badge.ok{border-color:#1f5130;background:#0f1f16}
-    .badge.err{border-color:#4b2a2a;background:#1a0f0f}
-    .flex{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-    .split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    @media (max-width:700px){.split{grid-template-columns:1fr}}
-    footer{border-top:1px solid var(--border);margin-top:40px}
-    .small{font-size:13px;color:var(--muted)}
+        /* Utility Classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-base);
+        }
+        .section-padding {
+            padding: 4rem 0;
+        }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .text-center { text-align: center; }
+        .text-muted { color: var(--color-muted); }
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            font-weight: 600;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+        }
+        .badge-brand { background-color: var(--color-brand); color: var(--color-panel); }
+        .badge-ok { background-color: var(--color-ok); color: var(--color-panel); }
+        .badge-error { background-color: var(--color-error); color: var(--color-panel); }
+        .card {
+            background-color: var(--color-panel);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-soft);
+            padding: var(--spacing-base);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
-    .input{background:#0f172a;border:1px solid #263246;color:var(--text);padding:12px;border-radius:12px;width:100%}
-    .input::placeholder{color:#7a8699}
-    .notice{border-left:4px solid var(--accent);background:#1a1622;padding:10px 12px;border-radius:10px}
-    .link-card{display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:12px;border:1px solid #233147;background:#0c1220}
+        /* Forms and Buttons */
+        input, button, select, textarea {
+            font-family: inherit;
+            font-size: 1rem;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            transition: border-color 0.2s, background-color 0.2s;
+            outline: none;
+        }
+        input:focus, textarea:focus {
+            border-color: var(--color-brand);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.5);
+        }
+        button {
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .btn-primary {
+            background-color: var(--color-brand);
+            color: var(--color-panel);
+        }
+        .btn-primary:hover {
+            background-color: #0ea5e9; /* Slightly darker brand */
+        }
+        .btn-accent {
+            background-color: var(--color-accent);
+            color: var(--color-panel);
+        }
+        .btn-accent:hover {
+            background-color: #f97316; /* Slightly darker accent */
+        }
+        .btn-danger {
+            background-color: var(--color-error);
+            color: var(--color-panel);
+        }
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+        .btn-secondary {
+            background-color: var(--color-border);
+            color: var(--color-text);
+        }
+        .btn-secondary:hover {
+            background-color: #374151;
+        }
+        .form-group {
+            margin-bottom: var(--spacing-base);
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-base);
+        }
 
-    /* Age Gate */
-    .modal{position:fixed;inset:0;background:rgba(3,10,18,.88);backdrop-filter:blur(6px);display:grid;place-items:center;padding:20px;z-index:10000}
-    .modal .card{animation:pop .18s ease-out}
-    @keyframes pop{from{transform:scale(.98);opacity:.7}to{transform:scale(1);opacity:1}}
-    .hidden{display:none}
-    body.gatelock{overflow:hidden}
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: var(--color-panel);
+            border-bottom: 1px solid var(--color-border);
+            padding: 10px 0;
+        }
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-badge {
+            background-color: var(--color-brand);
+            color: var(--color-bg);
+            font-size: 1.5rem;
+            font-weight: 800;
+            padding: 5px 10px;
+            border-radius: 6px;
+        }
+        .nav-links {
+            display: none; /* Hide on mobile by default */
+        }
+        .nav-links a {
+            margin-left: 1.5rem;
+            font-weight: 600;
+            padding: 5px 0;
+            display: inline-block;
+        }
+        .menu-toggle {
+            display: block;
+            background: none;
+            border: none;
+            color: var(--color-text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        /* Mobile Menu Overlay */
+        #mobile-menu {
+            position: fixed;
+            top: 60px; /* Below sticky header */
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--color-panel);
+            z-index: 40;
+            padding: var(--spacing-base);
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            border-top: 1px solid var(--color-border);
+        }
+        #mobile-menu a {
+            padding: 10px 0;
+            font-size: 1.2rem;
+            border-bottom: 1px solid var(--color-border);
+        }
 
-    /* Chips */
-    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-    .chip{padding:8px 12px;border-radius:999px;border:1px solid #243047;background:#0e1728;color:#d1d5db;font-size:12px;cursor:pointer}
-    .chip:active{transform:translateY(1px)}
+        /* Hero Section */
+        #hero {
+            padding: 6rem 0 4rem 0;
+            background-color: var(--color-bg);
+        }
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .hero-info {
+            max-width: 600px;
+        }
+        .hero-info p {
+            font-size: 1.1rem;
+            margin: 1rem 0 2rem 0;
+        }
+        .hero-actions {
+            display: flex;
+            gap: var(--spacing-base);
+        }
+        .hero-actions button {
+            flex: 1;
+            padding: 15px;
+        }
+        .hero-status {
+            margin-top: 2rem;
+            padding: var(--spacing-base);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-soft);
+            background-color: var(--color-panel);
+            text-align: center;
+        }
+        .hero-status h3 {
+            margin-bottom: 0.5rem;
+        }
+        .hero-image {
+            display: none;
+        }
 
-    /* Sticky mobile action bar */
-    .action-bar{position:fixed;left:0;right:0;bottom:0;background:#0c1220;border-top:1px solid var(--border);display:none;z-index:45}
-    .action-wrap{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:10px 12px}
-    @media (max-width:780px){.action-bar{display:block}}
+        /* Products Grid */
+        #products .product-card {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 1rem;
+        }
+        .product-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px;
+            background-color: #0b0f17;
+        }
+        .product-card h3 {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+        .product-card .meta {
+            font-size: 0.9rem;
+            color: var(--color-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .product-actions button {
+            flex: 1;
+            padding: 8px;
+            font-size: 0.9rem;
+        }
 
-    /* Mobile spacing */
-    @media(max-width:600px){
-      .btn{width:100%;justify-content:center}
-      .hero-wrap{padding:28px 12px}
-      .container{padding:16px}
-    }
-  </style>
+        /* Order Section */
+        #order-list-content {
+            margin-top: 1rem;
+            padding: var(--spacing-base);
+            background-color: var(--color-bg);
+            border-radius: var(--radius-soft);
+            border: 1px solid var(--color-border);
+        }
+        .order-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dotted var(--color-border);
+        }
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        .order-qty-control {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .order-qty-control button {
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            font-size: 1.2rem;
+            background-color: var(--color-border);
+        }
 
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"LiquorStore",
-    "name":"Pradhan Liquor Shop",
-    "image":"/assets/cover.jpg",
-    "address":{"@type":"PostalAddress","addressLocality":"Your Village","addressRegion":"Your State","addressCountry":"IN"},
-    "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"08:00","closes":"20:00"}],
-    "telephone":"+91 9239087045",
-    "url":"https://example.com",
-    "priceRange":"₹₹"
-  }
-  </script>
+        /* Owner Panel */
+        #owner-panel-content {
+            display: none;
+        }
+        .owner-form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-base);
+        }
+        @media (min-width: 640px) {
+            .owner-form-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .owner-form-grid .full-width {
+                grid-column: span 2;
+            }
+        }
+
+        /* Contact Section */
+        #map-container {
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-soft);
+            overflow: hidden;
+            height: 300px;
+            margin-top: 1rem;
+        }
+        #map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .contact-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .contact-actions button {
+            padding: 15px;
+        }
+        .full-row {
+            grid-column: 1 / -1;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 0 6rem 0; /* Add space for mobile action bar */
+            text-align: center;
+            border-top: 1px solid var(--color-border);
+            color: var(--color-muted);
+            font-size: 0.9rem;
+        }
+        footer span {
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Age Gate Modal & Lock */
+        #age-gate-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        #age-gate-modal.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .age-gate-content {
+            background-color: var(--color-panel);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-soft);
+            padding: 30px;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+        .age-gate-content h2 {
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+        .age-gate-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .age-gate-actions button {
+            flex: 1;
+            padding: 12px;
+        }
+        body.gatelock {
+            overflow: hidden;
+        }
+
+        /* Toast Notifications */
+        #toast-container {
+            position: fixed;
+            bottom: 60px; /* Above mobile action bar */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 90;
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 10px;
+        }
+        .toast {
+            background-color: var(--color-ok);
+            color: var(--color-panel);
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: translateY(20px);
+            min-width: 200px;
+            text-align: center;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Action Bar */
+        #mobile-action-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--color-panel);
+            border-top: 1px solid var(--color-border);
+            z-index: 50;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            padding: 10px var(--spacing-base);
+        }
+        #mobile-action-bar button {
+            background: none;
+            border: none;
+            color: var(--color-text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.75rem;
+            font-weight: 400;
+            padding: 5px;
+        }
+        #mobile-action-bar svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Responsive Breakpoints */
+        @media (min-width: 768px) {
+            /* Desktop/Tablet Nav */
+            .menu-toggle {
+                display: none;
+            }
+            .nav-links {
+                display: block;
+            }
+            #mobile-menu {
+                display: none !important;
+            }
+            /* Hero Layout */
+            .hero-content {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                padding-bottom: 6rem;
+            }
+            .hero-status {
+                width: 300px;
+                margin-top: 0;
+            }
+            .hero-info h1 { font-size: 3.5rem; }
+
+            #mobile-action-bar {
+                display: none; /* Hide on larger screens */
+            }
+            #toast-container {
+                bottom: 20px; /* Adjust toast position when action bar is hidden */
+            }
+            .contact-actions {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            .full-row {
+                grid-column: span 1;
+            }
+            footer {
+                padding: 2rem 0; /* No mobile action bar space needed */
+            }
+        }
+
+        /* A11y: Focus visible ring */
+        :focus-visible {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+    </style>
+    <!-- Inert polyfill for browsers that don't support it -->
+    <script src="https://unpkg.com/wicg-inert@0.4.1/dist/inert.min.js"></script>
 </head>
-<body>
-  <!-- Age Gate -->
-  <div id="ageGate" class="modal" role="dialog" aria-modal="true" aria-labelledby="ageTitle" aria-describedby="ageDesc">
-    <div class="card" style="max-width:520px">
-      <div class="pill">Age Verification</div>
-      <h2 id="ageTitle">Are you of legal drinking age in your state?</h2>
-      <p id="ageDesc" class="small">Access is for adults only. In-store purchase with government ID verification.</p>
-      <div class="split" style="margin-top:10px">
-        <button class="btn" id="btnYes" aria-label="Yes, I am of legal age">Yes, I am</button>
-        <button class="btn secondary" id="btnNo" aria-label="No, I am not">No</button>
-      </div>
-      <p class="small" style="margin-top:10px">By continuing, you accept our policy below.</p>
-    </div>
-  </div>
+<body class="gatelock">
 
-  <!-- Page -->
-  <div id="page" aria-hidden="true">
+    <!-- Age Gate Modal -->
+    <div id="age-gate-modal" class="visible" role="dialog" aria-modal="true" aria-labelledby="age-gate-title" tabindex="-1">
+        <div class="age-gate-content">
+            <h2 id="age-gate-title">Verify Your Age</h2>
+            <p>You must be of legal drinking age (as per state rules) to view this website.</p>
+            <div class="age-gate-actions">
+                <button id="age-confirm" class="btn-primary">Yes, I am legal age</button>
+                <button id="age-deny" class="btn-danger">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" aria-live="polite"></div>
+
+    <!-- Header / Nav -->
     <header>
-      <div class="container nav">
-        <a class="logo" href="#home" aria-label="Pradhan Liquor Shop home">
-          <span class="logo-badge">PL</span>
-          <span>Pradhan Liquor Shop</span>
-        </a>
-        <nav aria-label="Main">
-          <button class="btn secondary icon menu-btn" id="menuBtn" aria-expanded="false" aria-controls="primaryNav">☰</button>
-          <ul id="primaryNav">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#products">Products</a></li>
-            <li><a href="#order">Order</a></li>
-            <li><a href="#owner">Owner</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </nav>
-        <a class="btn hide-sm" href="#contact">Call / WhatsApp</a>
-      </div>
+        <div class="container nav-content">
+            <span class="logo-badge">PL</span>
+            <nav class="nav-links">
+                <a href="#hero">Home</a>
+                <a href="#about">About</a>
+                <a href="#products">Products</a>
+                <a href="#order">Order</a>
+                <a href="#owner">Owner</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle navigation menu">
+                <!-- Hamburger Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" role="menu">
+            <a href="#hero" onclick="document.getElementById('mobile-menu').style.display='none'">Home</a>
+            <a href="#about" onclick="document.getElementById('mobile-menu').style.display='none'">About</a>
+            <a href="#products" onclick="document.getElementById('mobile-menu').style.display='none'">Products</a>
+            <a href="#order" onclick="document.getElementById('mobile-menu').style.display='none'">Order</a>
+            <a href="#owner" onclick="document.getElementById('mobile-menu').style.display='none'">Owner</a>
+            <a href="#contact" onclick="document.getElementById('mobile-menu').style.display='none'">Contact</a>
+        </div>
     </header>
 
-    <main id="home" class="hero">
-      <div class="container hero-wrap">
-        <section>
-          <span class="pill">Since 2021 • Licensed Retailer</span>
-          <h1>Your trusted local store for spirits, wine & beer</h1>
-          <p>Browse our selection and visit in person to purchase. We do <strong>not</strong> sell online.</p>
-          <div class="flex" style="margin-top:10px">
-            <a class="btn" href="#order">Order List</a>
-            <a class="btn secondary" href="#contact">Get Directions</a>
-          </div>
-        </section>
-        <aside>
-          <div class="card">
-            <img src="https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1200&auto=format&fit=crop" alt="Store bottles display" width="640" height="240" loading="lazy" style="width:100%;height:240px;object-fit:cover;border-radius:12px" />
-            <div class="grid" style="margin-top:12px">
-              <div class="span-6">
-                <div class="link-card">
-                  <span id="openStatus">Open today</span>
-                  <span class="badge" id="hoursBadge">08:00 AM – 08:00 PM</span>
+    <main>
+        <!-- 1. Hero Section -->
+        <section id="hero" class="container">
+            <div class="hero-content">
+                <div class="hero-info">
+                    <p class="badge badge-brand" style="margin-bottom: 0.5rem;">Since 2021 • Licensed Retailer</p>
+                    <h1>Pradhan Liquor Shop</h1>
+                    <p>Browse our selection and visit in person to purchase. We do <strong>not</strong> sell online.</p>
+                    <div class="hero-actions">
+                        <a href="#order" class="btn-accent" style="flex: 1; text-align: center; padding: 15px;">Order List</a>
+                        <a href="#contact" class="btn-secondary" style="flex: 1; text-align: center; padding: 15px;">Get Directions</a>
+                    </div>
                 </div>
-              </div>
-              <div class="span-6">
-                <a class="link-card" href="tel:+919239087045"><span>Call Us</span><span class="badge">+91 9239087045</span></a>
-              </div>
+
+                <div class="hero-status card">
+                    <h3 id="status-title">Checking Status...</h3>
+                    <p class="text-muted">Daily Hours: <span id="hours-display">08:00 AM – 08:00 PM</span></p>
+                    <p class="text-muted" id="current-time-display"></p>
+                    <p id="status-message" style="margin-top: 10px; font-weight: 600;">(Please wait)</p>
+                </div>
             </div>
-          </div>
-        </aside>
-      </div>
+        </section>
+
+        <!-- 2. About Us -->
+        <section id="about" class="section-padding container">
+            <h2>About Us</h2>
+            <div style="margin-top: 2rem;">
+                <p>Pradhan Liquor Shop is an owner-run store serving our neighbourhood since 2021. We keep a focused selection of popular spirits, wine and beer—neatly arranged with clear labels, so you can find what you want quickly.</p>
+                <ul style="margin-top: 1rem; list-style: none; padding-left: 0;">
+                    <li>✅ Open daily: 08:00 AM – 08:00 PM</li>
+                    <li>✅ Clean, well-lit shelves and quick counter service</li>
+                    <li>✅ Chilled storage for select beverages</li>
+                    <li>✅ Basic roadside parking nearby</li>
+                    <li>✅ Bulk / party quantities accepted — billed in store</li>
+                    <li>✅ Enquiries via call or WhatsApp; purchase happens in store</li>
+                </ul>
+                <p style="margin-top: 1rem; font-weight: 600; color: var(--color-error);">Small note: We do not sell online or ship.</p>
+            </div>
+        </section>
+
+        <!-- 3. Products (Public Grid) -->
+        <section id="products" class="section-padding container">
+            <h2>Our Selection</h2>
+            <p class="text-muted" style="margin-bottom: 2rem;">Realtime availability synced via Firebase. Prices are not shown publicly, please enquire in-store.</p>
+            <div id="product-grid" class="grid-3">
+                <!-- Products dynamically rendered here -->
+                <p id="loading-products" style="grid-column: span 3; text-align: center;">Loading products...</p>
+            </div>
+        </section>
+
+        <!-- 4. Order List (Local Storage Only) -->
+        <section id="order" class="section-padding container">
+            <h2>Order List (In-Store Pickup Only)</h2>
+            <p class="text-muted" style="margin-bottom: 1rem;">Use this list to quickly compile your order, then send the list to our WhatsApp number for confirmation before visiting the store. This list is saved locally on your device.</p>
+
+            <div class="card">
+                <h3>Add Item</h3>
+                <form id="add-order-form" style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+                    <input list="product-names" id="order-item-name" placeholder="Item Name (e.g., Signature Rare)" required style="flex-grow: 1; min-width: 150px;">
+                    <datalist id="product-names">
+                        <!-- Options dynamically added by JS -->
+                    </datalist>
+                    <input type="number" id="order-item-qty" value="1" min="1" required style="width: 70px; text-align: center; flex-shrink: 0;">
+                    <button type="submit" class="btn-primary" style="flex-shrink: 0; padding: 10px 15px;">Add</button>
+                </form>
+
+                <div id="order-list-content">
+                    <p class="text-center text-muted" id="empty-order-message" style="padding: 1rem 0;">Your order list is empty.</p>
+                    <!-- Order items dynamically rendered here -->
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
+                    <button id="send-whatsapp-order" class="btn-accent" style="flex: 1; min-width: 120px;" disabled>Send to WhatsApp</button>
+                    <button id="clear-order" class="btn-secondary" style="flex: 1; min-width: 120px;">Clear List</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Owner Panel -->
+        <section id="owner" class="section-padding container">
+            <h2 id="owner-title">Owner Panel</h2>
+
+            <!-- Locked State -->
+            <div id="owner-panel-lock" class="card text-center" style="padding: 2rem;">
+                <p>Manage items on this device. Enter owner code to unlock editing.</p>
+                <form id="owner-unlock-form" style="display: flex; gap: 10px; margin-top: 1rem; max-width: 300px; margin-left: auto; margin-right: auto;">
+                    <input type="password" id="owner-code" placeholder="Owner Code" required style="flex-grow: 1;">
+                    <button type="submit" class="btn-primary">Unlock</button>
+                </form>
+            </div>
+
+            <!-- Unlocked State -->
+            <div id="owner-panel-content" class="card" style="margin-top: 2rem;">
+                <h3>Add / Update Product</h3>
+                <form id="product-form" style="margin-top: 1rem;">
+                    <input type="hidden" id="product-id">
+                    <div class="owner-form-grid">
+                        <div class="form-group full-width">
+                            <label for="product-name">Product Name (required)</label>
+                            <input type="text" id="product-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-brand">Brand</label>
+                            <input type="text" id="product-brand">
+                        </div>
+                        <div class="form-group">
+                            <label for="product-category">Category (e.g., Whisky, Wine)</label>
+                            <input type="text" id="product-category">
+                        </div>
+                        <div class="form-group">
+                            <label for="product-size">Size (e.g., 750 ml)</label>
+                            <input type="text" id="product-size">
+                        </div>
+                        <div class="form-group">
+                            <label for="product-abv">ABV (e.g., 42.8%)</label>
+                            <input type="text" id="product-abv">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="product-image">Image URL (https URL)</label>
+                            <input type="url" id="product-image" placeholder="https://example.com/image.jpg">
+                        </div>
+                        <div class="form-group" style="display: flex; align-items: center; gap: 10px; grid-column: span 1;">
+                            <input type="checkbox" id="product-available" checked style="width: auto; margin: 0; height: 20px;">
+                            <label for="product-available" style="margin: 0; font-weight: normal;">Available in Stock</label>
+                        </div>
+                        <div class="form-group" style="grid-column: span 1;">
+                            <label for="owner-security-status">Firebase Security Status</label>
+                            <p id="owner-security-status" class="text-muted" style="font-size: 0.9rem; margin-top: 5px;">Checking Write Access...</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
+                        <button type="submit" class="btn-primary" id="product-submit-btn" style="flex: 1; min-width: 100px;">Add Product</button>
+                        <button type="button" class="btn-secondary" id="product-clear-btn" style="flex: 1; min-width: 100px;">Clear Form</button>
+                        <button type="button" class="btn-danger" id="product-delete-btn" style="flex: 1; min-width: 100px; display: none;">Delete Current</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- 6. Contact & Map -->
+        <section id="contact" class="section-padding container">
+            <h2>Contact & Location</h2>
+            <p class="text-muted" style="margin-bottom: 1rem;">5JGQ+7W2, Rhenak, Sikkim</p>
+
+            <div class="contact-actions">
+                <a href="tel:+919239087045" class="full-row"><button class="btn-primary full-row" style="background-color: var(--color-ok); border-color: var(--color-ok);">Call: +91 9239087045</button></a>
+                <a href="" target="_blank" id="whatsapp-link"><button class="btn-primary" style="background-color: #25D366; border-color: #25D366;">WhatsApp Us</button></a>
+                <a href="" target="_blank" id="maps-link"><button class="btn-accent">Get Directions</button></a>
+            </div>
+
+            <div id="map-container">
+                <!-- IMPORTANT: Replace YOUR_MAPS_API_KEY below with a valid Google Maps API Key if embedding is required. For development, a basic query URL is used in JS -->
+                <iframe id="map-iframe" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" style="height: 100%;"></iframe>
+            </div>
+        </section>
+
+        <!-- 7. Responsible Service Policy -->
+        <section id="policy" class="section-padding container">
+            <h2 class="text-center">Responsible Service Policy</h2>
+            <div class="card" style="max-width: 600px; margin: 2rem auto; padding: 2rem;">
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 10px;">• Access is for adults of legal drinking age (as per state rules).</li>
+                    <li style="margin-bottom: 10px;">• No online sales. In-store purchase only.</li>
+                    <li>• Service may be refused to intoxicated persons.</li>
+                </ul>
+            </div>
+        </section>
     </main>
 
-    <!-- About Us -->
-    <section id="about" class="container" style="margin-top:28px">
-      <div class="grid">
-        <div class="span-12 card">
-          <h2>About Us</h2>
-          <p>Pradhan Liquor Shop is an owner-run store serving our neighbourhood since 2021. We keep a focused selection of popular spirits, wine and beer — neatly arranged with clear labels, so you can find what you want quickly.</p>
-          <ul>
-            <li>Open daily: <strong>08:00 AM – 08:00 PM</strong></li>
-            <li>Clean, well-lit shelves and quick counter service</li>
-            <li>Chilled storage for select beverages</li>
-            <li>Basic roadside parking nearby</li>
-            <li>Bulk / party quantities accepted — billed in store</li>
-            <li>Enquiries via call or WhatsApp; purchase happens in store</li>
-          </ul>
-          <p class="small" style="margin-top:8px">Note: We do not sell online or ship. Government ID is checked in-store before purchase.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Order -->
-    <section id="order" class="container" style="margin-top:28px">
-      <div class="grid">
-        <div class="span-8 card">
-          <h2>Order Request (Adults Only)</h2>
-          <p class="small">Prepare a list and send it on WhatsApp. Final purchase is <strong>in-store</strong> with ID verification.</p>
-
-          <form id="orderForm" class="flex" style="margin-bottom:10px;flex-wrap:wrap;gap:8px">
-            <input id="newItemName" class="input" placeholder="Item name" list="itemNames" required style="flex:2;min-width:180px"/>
-            <datalist id="itemNames"></datalist>
-            <input id="newItemQty" class="input" placeholder="Qty" value="1" inputmode="numeric" style="flex:1;max-width:120px"/>
-            <button id="addItemBtn" class="btn" type="submit">Add</button>
-          </form>
-
-          <div>
-            <span class="small">Quick add:</span>
-            <div id="suggestions" class="chips" aria-live="polite"></div>
-          </div>
-
-          <div id="orderList" style="margin-top:10px"></div>
-          <div class="flex" style="margin-top:10px">
-            <button id="clearOrderBtn" class="btn secondary">Clear List</button>
-            <button id="sendOrderBtn" class="btn">Send to WhatsApp</button>
-          </div>
-        </div>
-
-        <!-- Owner Panel (always visible) -->
-        <div id="owner" class="span-4 card">
-          <h2>Owner Panel</h2>
-          <p class="small">Manage items on this device. Enter code to unlock editing.</p>
-
-          <!-- Locked view -->
-          <div id="ownerLocked">
-            <label class="small" for="ownerCode">Owner code</label>
-            <div class="flex" style="gap:8px">
-              <input id="ownerCode" class="input" type="password" placeholder="••••••" aria-label="Owner code" style="flex:1"/>
-              <button id="unlockBtn" class="btn" type="button">Unlock</button>
-            </div>
-            <p id="lockMsg" class="small" style="margin-top:6px;color:#fca5a5"></p>
-          </div>
-
-          <!-- Unlocked form -->
-          <div id="ownerPanel" class="hidden">
-            <form id="productForm">
-              <input class="input" id="pName" placeholder="Name (e.g., Old Monk Rum)" required style="margin-top:8px"/>
-              <input class="input" id="pBrand" placeholder="Brand (e.g., Mohan Meakin)"/>
-              <input class="input" id="pCategory" placeholder="Category (Whisky/Wine/Beer/Gin/etc.)"/>
-              <input class="input" id="pSize" placeholder="Pack size (e.g., 750 ml)"/>
-              <input class="input" id="pABV" placeholder="ABV (e.g., 42.8%)"/>
-              <input class="input" id="pImage" placeholder="Image URL (optional)"/>
-              <label class="small" style="display:block;margin-top:6px">
-                <input type="checkbox" id="pAvailable" checked /> Available
-              </label>
-              <div class="flex">
-                <button class="btn" type="submit">Add / Update</button>
-                <button class="btn secondary" id="resetForm" type="button">Clear</button>
-              </div>
-              <p class="small" style="margin:8px 0 0">Tip: Click ✏️ to edit, 🗑️ to remove.</p>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Products -->
-    <section id="products" class="container" style="margin-top:28px">
-      <div class="grid">
-        <div class="span-12 card">
-          <h2>Products</h2>
-          <p class="small">Public view of items in stock. Prices not shown. Sales are <strong>in-store only</strong>.</p>
-          <div id="productsGrid" class="catalog" aria-live="polite" aria-busy="false"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="container" style="margin-top:28px">
-      <div class="grid">
-        <div class="span-6 card">
-          <h2>Contact & Directions</h2>
-          <div class="flex">
-            <a class="btn" href="https://wa.me/919239087045?text=Hi%20Pradhan%20Liquor%20Shop%2C%20please%20share%20today's%20availability." target="_blank" rel="noopener">WhatsApp Us</a>
-            <a class="btn secondary" href="tel:+919239087045">Call: +91 9239087045</a>
-          </div>
-          <p class="small" style="margin:8px 0 0">Address: 5JGQ+7W2, Rhenak, Sikkim</p>
-          <div class="flex" style="margin-top:8px">
-            <a class="btn secondary" href="https://maps.google.com/?q=5JGQ%2B7W2%20Rhenak%2C%20Sikkim" target="_blank" rel="noopener">Get Directions</a>
-          </div>
-        </div>
-        <div class="span-6 card">
-          <h2>Map</h2>
-          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;border:1px solid #1f2937">
-            <iframe title="Google Map" src="https://www.google.com/maps?q=5JGQ%2B7W2%20Rhenak%2C%20Sikkim&z=16&output=embed" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Policy -->
-    <section id="policy" class="container" style="margin-top:28px">
-      <div class="card">
-        <h2>Responsible Service Policy</h2>
-        <ul class="small">
-          <li>Access is for adults of legal drinking age (18/21+, as per state rules).</li>
-          <li>Government-issued ID is verified in store before purchase.</li>
-          <li>No online sales. No shipping. In-store purchase only.</li>
-          <li>Service may be refused to intoxicated persons.</li>
-        </ul>
-      </div>
-    </section>
-
-    <footer class="container" style="padding-bottom:72px">
-      <div class="grid" style="align-items:center">
-        <div class="span-8 small">© <span id="year"></span> Pradhan Liquor Shop • All rights reserved.</div>
-        <div class="span-4 small" style="text-align:right">Made with ♥ in Your Village</div>
-      </div>
+    <!-- Footer -->
+    <footer>
+        <p>© <span id="current-year"></span> Pradhan Liquor Shop • All rights reserved.</p>
+        <span>Made with ❤️ in Your Village</span>
     </footer>
 
-    <!-- Sticky mobile action bar -->
-    <div class="action-bar" aria-hidden="false">
-      <div class="action-wrap container" style="max-width:900px">
-        <a class="btn secondary" href="tel:+919239087045">📞 Call</a>
-        <a class="btn" href="https://wa.me/919239087045?text=Hi%20Pradhan%20Liquor%20Shop" target="_blank" rel="noopener">💬 WhatsApp</a>
-        <a class="btn secondary" href="https://maps.google.com/?q=5JGQ%2B7W2%20Rhenak%2C%20Sikkim" target="_blank" rel="noopener">🧭 Directions</a>
-      </div>
+    <!-- Mobile Action Bar -->
+    <div id="mobile-action-bar">
+        <button id="mobile-call-btn" aria-label="Call Pradhan Liquor Shop">
+            <!-- Phone Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-5.65-5.65A19.79 19.79 0 0 1 2 4.18a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2 11.23 11.23 0 0 0 1.93 6.64 1.15 1.15 0 0 1-.35 1.03l-.24.24a1.32 1.32 0 0 0-.21 1.59l.71.71a1.29 1.29 0 0 0 1.58.2l.24-.24a1.15 1.15 0 0 0 1.03-.35 11.23 11.23 0 0 0 6.64 1.93 2 2 0 0 1 2 2z"></path></svg>
+            Call
+        </button>
+        <button id="mobile-whatsapp-btn" aria-label="WhatsApp Pradhan Liquor Shop">
+            <!-- Chat Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            WhatsApp
+        </button>
+        <button id="mobile-directions-btn" aria-label="Get Directions">
+            <!-- Map Pin Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            Directions
+        </button>
     </div>
-  </div>
 
-  <noscript>
-    <div style="position:fixed;inset:0;background:#0b0f17;color:#fff;display:grid;place-items:center;z-index:20000;padding:16px;text-align:center">
-      <div class="card" style="max-width:520px">
-        <h2>Enable JavaScript</h2>
-        <p class="small">This site requires JavaScript for age verification. Please enable it to continue.</p>
-      </div>
-    </div>
-  </noscript>
+    <!-- Firebase SDK Imports (using v10 modules from CDN) -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+        import { getAuth, signInAnonymously, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+        import { getFirestore, collection, onSnapshot, query, orderBy, addDoc, doc, setDoc, deleteDoc, where } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
-  <script>
-    /* Mobile nav */
-    (function(){
-      const btn=document.getElementById('menuBtn');
-      const nav=document.getElementById('primaryNav');
-      if(!btn||!nav) return;
-      btn.addEventListener('click',()=>{ const open=nav.classList.toggle('open'); btn.setAttribute('aria-expanded', String(open)); });
-      nav.addEventListener('click', e=>{ if(e.target.tagName==='A' && nav.classList.contains('open')) nav.classList.remove('open'); });
-    })();
+        // --- 9) Replace-Me Variables ---
 
-    /* Storage helper (localStorage with cookie fallback) */
-    const Store=(function(){
-      function setCookie(k,v,days){ const d=new Date(); d.setTime(d.getTime()+days*864e5); document.cookie=`${k}=${v};expires=${d.toUTCString()};path=/;SameSite=Lax`; }
-      function getCookie(k){ return (document.cookie.split('; ').find(r=>r.startsWith(k+'='))||'').split('=')[1]||null; }
-      return {
-        set(k,v){ try{ localStorage.setItem(k,v); }catch(e){ setCookie(k,v,365); } },
-        get(k){ try{ return localStorage.getItem(k) }catch(e){ return getCookie(k) } },
-        remove(k){ try{ localStorage.removeItem(k) }catch(e){ setCookie(k,'',-1) } }
-      }
-    })();
+        const OWNER_CODE_UX = 'OWNER2025';
 
-    /* Age Gate */
-    (function(){
-      const KEY='pls_age_ok_v2';
-      const gate=document.getElementById('ageGate');
-      const yes=document.getElementById('btnYes');
-      const no=document.getElementById('btnNo');
-      const page=document.getElementById('page');
-      if(!gate||!yes||!no||!page) return;
-
-      function setInert(on){
-        const nodes=[...document.body.children].filter(n=>n!==gate);
-        nodes.forEach(n=>{
-          try{ n.inert=on; }catch(_){}
-          n.style.pointerEvents = on ? 'none' : '';
-          if(n.id==='page'){ n.setAttribute('aria-hidden', on?'true':'false'); }
-        });
-      }
-      function showGate(){ gate.classList.remove('hidden'); document.body.classList.add('gatelock'); setInert(true); setTimeout(()=>yes.focus(),0); window.scrollTo(0,0); }
-      function hideGate(){ gate.classList.add('hidden'); document.body.classList.remove('gatelock'); setInert(false); page.setAttribute('aria-hidden','false'); }
-
-      const ok = Store.get(KEY)==='1';
-      if(ok){ hideGate(); } else { showGate(); }
-
-      yes.addEventListener('click',()=>{ Store.set(KEY,'1'); hideGate(); });
-      no.addEventListener('click',()=>{ Store.remove(KEY); alert('Sorry, this site is for adults only.'); location.href='https://www.google.com'; });
-
-      window.addEventListener('keydown',e=>{ if(e.key==='Y'&&e.shiftKey){ Store.remove(KEY); showGate(); }});
-    })();
-
-    /* Footer year */
-    (function(){ const y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear(); })();
-
-    /* Open/Closed status */
-    (function(){
-      const OPEN_H=8, CLOSE_H=20; // 08:00–20:00
-      const badge=document.getElementById('hoursBadge');
-      const status=document.getElementById('openStatus');
-      function fmt(h){ const hour=((h+11)%12)+1; const ampm=h<12?'AM':'PM'; return `${String(hour).padStart(2,'0')}:00 ${ampm}`;}
-      function refresh(){
-        if(badge) badge.textContent=`${fmt(OPEN_H)} – ${fmt(CLOSE_H===24?0:CLOSE_H)}`;
-        const h=new Date().getHours();
-        const open = h>=OPEN_H && h<CLOSE_H;
-        if(status){ status.textContent=open?'Open now':'Closed'; status.className=open?'badge ok':'badge err'; }
-      }
-      refresh(); setInterval(refresh,60*1000);
-    })();
-
-    /* Product Store + Owner Panel */
-    (function(){
-      const KEY='pls_products_v1';
-      const OWNER_KEY='pls_owner_ok_v1';
-      const OWNER_CODE='OWNER2025';
-
-      const grid=document.getElementById('productsGrid');
-      const ownerLocked=document.getElementById('ownerLocked');
-      const ownerPanel=document.getElementById('ownerPanel');
-      const unlockBtn=document.getElementById('unlockBtn');
-      const ownerCode=document.getElementById('ownerCode');
-      const lockMsg=document.getElementById('lockMsg');
-      const form=document.getElementById('productForm');
-      const resetBtn=document.getElementById('resetForm');
-
-      function seed(){
-        const sample=[
-          {id:crypto.randomUUID(),name:'Signature Rare Whisky',brand:'United Spirits',category:'Whisky',size:'750 ml',abv:'42.8%',available:true,image:'https://images.unsplash.com/photo-1535961658903-6f6f5e9c9c1f?q=80&w=1200&auto=format&fit=crop'},
-          {id:crypto.randomUUID(),name:'Sula Chenin Blanc',brand:'Sula',category:'Wine',size:'750 ml',abv:'12% approx',available:true,image:'https://images.unsplash.com/photo-1542326237-94b1c5a538d8?q=80&w=1200&auto=format&fit=crop'},
-          {id:crypto.randomUUID(),name:'Kingfisher Premium',brand:'UB',category:'Beer',size:'650 ml',abv:'4.8%',available:true,image:'https://images.unsplash.com/photo-1481391393056-5c7b1e4e84b0?q=80&w=1200&auto=format&fit=crop'}
-        ];
-        localStorage.setItem(KEY, JSON.stringify(sample));
-      }
-      function load(){
-        let arr=[]; try{ arr=JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(_){ arr=[]; }
-        if(!arr.length){ seed(); arr=JSON.parse(localStorage.getItem(KEY)||'[]'); }
-        return arr;
-      }
-      function save(arr){ localStorage.setItem(KEY, JSON.stringify(arr)); }
-
-      function render(){
-        const items=load();
-        if(!grid) return;
-        grid.setAttribute('aria-busy','true');
-        grid.innerHTML=items.map(item=>{
-          const badge=item.available?'<span class="badge">Available</span>':'<span class="badge err">Out of stock</span>';
-          const img=item.image?`<img src="${item.image}" alt="${item.name}" loading="lazy">`:`<div style="height:160px;display:grid;place-items:center;background:#0a0e16">📦</div>`;
-          const ownerBtns=(localStorage.getItem(OWNER_KEY)==='1')?'<button class="btn secondary" data-edit="1">✏️ Edit</button><button class="btn secondary" data-del="1">🗑️ Delete</button>':'';
-          return `
-            <article class="item" data-id="${item.id}">
-              ${img}
-              <div class="body">
-                <strong>${item.name}</strong>
-                <span class="tag">${item.brand?item.brand+' • ':''}${item.category||''}${item.size?(' • '+item.size):''}${item.abv?(' • '+item.abv):''}</span>
-                <div class="flex">${badge}${ownerBtns}</div>
-              </div>
-            </article>`;
-        }).join('');
-        grid.setAttribute('aria-busy','false');
-      }
-
-      function addOrUpdate(data){
-        const items=load();
-        if(data.id){
-          const i=items.findIndex(x=>x.id===data.id);
-          if(i>-1) items[i]=data; else items.push(data);
-        }else{
-          data.id=crypto.randomUUID(); items.push(data);
-        }
-        save(items); render();
-        if(form) form.reset();
-      }
-      function remove(id){
-        const items=load().filter(x=>x.id!==id);
-        save(items); render();
-      }
-
-      function updateOwnerUI(){
-        const ok=localStorage.getItem(OWNER_KEY)==='1';
-        ownerLocked?.classList.toggle('hidden', ok);
-        ownerPanel?.classList.toggle('hidden', !ok);
-        render();
-      }
-
-      unlockBtn?.addEventListener('click',()=>{
-        if(ownerCode.value===OWNER_CODE){ localStorage.setItem(OWNER_KEY,'1'); lockMsg.textContent=''; updateOwnerUI(); }
-        else { lockMsg.textContent='Wrong code.'; }
-      });
-
-      form?.addEventListener('submit',e=>{
-        e.preventDefault();
-        const data={
-          id: form.dataset.editId||'',
-          name: document.getElementById('pName').value.trim(),
-          brand: document.getElementById('pBrand').value.trim(),
-          category: document.getElementById('pCategory').value.trim(),
-          size: document.getElementById('pSize').value.trim(),
-          abv: document.getElementById('pABV').value.trim(),
-          image: document.getElementById('pImage').value.trim(),
-          available: document.getElementById('pAvailable').checked
+        const SHOP = {
+            name: "Pradhan Liquor Shop",
+            phone: "+919239087045",
+            whatsapp: "919239087045", // WhatsApp API format (no + or spaces)
+            mapsQuery: "5JGQ+7W2 Rhenak, Sikkim",
+            hours: { open: 8, close: 20 }, // 8–20 local time
+            address: "5JGQ+7W2, Rhenak, Sikkim",
+            since: 2021
         };
-        if(!data.name){ alert('Name is required'); return; }
-        addOrUpdate(data);
-        delete form.dataset.editId;
-      });
 
-      resetBtn?.addEventListener('click',()=>{ form.reset(); delete form.dataset.editId; });
+        // --- IMPORTANT: Paste your Firebase config here ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyBFy-p0-1lK_7WVPqJdFOoqg_HKwzXJaww",
+            authDomain: "pradhan-liquor-shop.firebaseapp.com",
+            projectId: "pradhan-liquor-shop",
+            storageBucket: "pradhan-liquor-shop.firebasestorage.app",
+            messagingSenderId: "640650300454",
+            appId: "1:640650300454:web:7c059d097d52fcbdc6aae7",
+            measurementId: "G-Y5L7XH7TQ4"
+        };
+        // ---------------------------------------------------
 
-      document.getElementById('productsGrid')?.addEventListener('click',e=>{
-        const t=e.target; const card=t.closest('.item'); if(!card) return;
-        const id=card.getAttribute('data-id');
-        if(t.matches('[data-del]')){ if(confirm('Delete this item?')) remove(id); }
-        if(t.matches('[data-edit]')){
-          const items=load();
-          const item=items.find(x=>x.id===id); if(!item) return;
-          document.getElementById('pName').value=item.name||'';
-          document.getElementById('pBrand').value=item.brand||'';
-          document.getElementById('pCategory').value=item.category||'';
-          document.getElementById('pSize').value=item.size||'';
-          document.getElementById('pABV').value=item.abv||'';
-          document.getElementById('pImage').value=item.image||'';
-          document.getElementById('pAvailable').checked=!!item.available;
-          form.dataset.editId=item.id;
-          window.location.hash='#owner';
+        // Firebase Initialization
+        let app, auth, db;
+        try {
+            app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+        } catch(e) {
+            console.error("Firebase Initialization Error. Did you fill in firebaseConfig?", e);
+            alert("Error: Firebase not configured. Please fill in firebaseConfig in index.html script.");
         }
-      });
 
-      // Init
-      updateOwnerUI();
-    })();
 
-    /* Order list + WhatsApp */
-    (function(){
-      const ORDER_KEY='pls_order_v1';
-      const PRODUCTS_KEY='pls_products_v1';
-      const orderList=document.getElementById('orderList');
-      const form=document.getElementById('orderForm');
-      const nameInput=document.getElementById('newItemName');
-      const qtyInput=document.getElementById('newItemQty');
-      const sendBtn=document.getElementById('sendOrderBtn');
-      const clearBtn=document.getElementById('clearOrderBtn');
-      const dataList=document.getElementById('itemNames');
-      const sugg=document.getElementById('suggestions');
-      if(!orderList||!form||!nameInput||!qtyInput||!sendBtn||!dataList||!sugg) return;
+        let currentAuthUser = null;
+        let isOwnerAuthenticated = false; // Controlled by Firebase Auth/Rules check
+        let isOwnerUXUnlocked = localStorage.getItem('pls_owner_ok_v1') === 'true';
 
-      function getProductNames(){
-        try{
-          const arr=JSON.parse(localStorage.getItem(PRODUCTS_KEY)||'[]');
-          return Array.from(new Set(arr.map(x=>x?.name).filter(Boolean))).sort((a,b)=>a.localeCompare(b));
-        }catch(_){ return []; }
-      }
-      function populate(){
-        const names=getProductNames();
-        dataList.innerHTML=names.map(n=>`<option value="${n}"></option>`).join('');
-        sugg.innerHTML=names.slice(0,20).map(n=>`<button type="button" class="chip" data-name="${n}">${n}</button>`).join('');
-      }
+        // --- 6) Firebase Security Rules Examples (For reference in code comments) ---
+        /*
+        // Temporary (demo only) rules:
+        // rules_version = '2';
+        // service cloud.firestore {
+        //   match /databases/{database}/documents {
+        //     match /products/{id} {
+        //       allow read: if true;
+        //       allow write: if request.time < timestamp.date(2099,1,1);
+        //     }
+        //   }
+        // }
 
-      let items=[]; try{ items=JSON.parse(localStorage.getItem(ORDER_KEY)||'[]'); }catch(_){ items=[]; }
-      function save(){ localStorage.setItem(ORDER_KEY, JSON.stringify(items)); }
-      function render(){
-        if(!items.length){ orderList.innerHTML='<p class="small">No items added yet.</p>'; return; }
-        orderList.innerHTML=items.map((x,i)=>`
-          <div class="link-card" data-index="${i}">
-            <div><strong>${x.name}</strong><br><span class="small">Qty: ${x.qty}</span></div>
-            <div class="flex">
-              <button class="btn secondary" data-minus="1" title="Decrease">−</button>
-              <button class="btn secondary" data-plus="1" title="Increase">+</button>
-              <button class="btn secondary" data-del="1" title="Remove">🗑️</button>
-            </div>
-          </div>`).join('');
-      }
+        // Stricter (recommended) rules: Requires owner@example.com to be logged in via email/password.
+        // rules_version = '2';
+        // service cloud.firestore {
+        //   match /databases/{database}/documents {
+        //     function isOwner() {
+        //       return request.auth != null && request.auth.token.email == "owner@example.com"; // REPLACE owner@example.com
+        //     }
+        //     match /products/{id} {
+        //       allow read: if true;
+        //       allow write: if isOwner();
+        //     }
+        //   }
+        // }
+        */
+        // --------------------------------------------------------------------------
 
-      form.addEventListener('submit',e=>{
-        e.preventDefault();
-        const name=(nameInput.value||'').trim();
-        const qty=(qtyInput.value||'1').trim();
-        if(!name) return;
-        const idx=items.findIndex(x=>x.name.toLowerCase()===name.toLowerCase());
-        if(idx>-1){ items[idx].qty=String(Number(items[idx].qty||1)+Number(qty||1)); }
-        else { items.push({name, qty: qty||'1'}); }
-        nameInput.value=''; qtyInput.value='1'; save(); render();
-      });
 
-      sugg.addEventListener('click',e=>{
-        const btn=e.target.closest('[data-name]'); if(!btn) return;
-        const n=btn.getAttribute('data-name');
-        const idx=items.findIndex(x=>x.name.toLowerCase()===n.toLowerCase());
-        if(idx>-1){ items[idx].qty=String(Number(items[idx].qty||1)+1); } else { items.push({name:n, qty:'1'}); }
-        save(); render();
-      });
+        // Utility Functions
+        function showToast(message, type = 'ok') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast badge-${type}`;
+            toast.textContent = message;
+            container.appendChild(toast);
 
-      orderList.addEventListener('click',e=>{
-        const card=e.target.closest('[data-index]'); if(!card) return;
-        const i=+card.getAttribute('data-index');
-        if(e.target.matches('[data-del]')){ items.splice(i,1); save(); render(); }
-        if(e.target.matches('[data-plus]')){ items[i].qty=String(Number(items[i].qty||1)+1); save(); render(); }
-        if(e.target.matches('[data-minus]')){ items[i].qty=String(Math.max(1, Number(items[i].qty||1)-1)); save(); render(); }
-      });
+            // Show and hide logic
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
 
-      clearBtn?.addEventListener('click',()=>{ if(confirm('Clear all items?')){ items=[]; save(); render(); }});
+            setTimeout(() => {
+                toast.classList.remove('show');
+                // Clean up element after transition ends
+                toast.addEventListener('transitionend', () => toast.remove());
+            }, 3000);
+        }
 
-      sendBtn.addEventListener('click',()=>{
-        if(!items.length){ alert('Add items first.'); return; }
-        const text='Order Request (Adults Only):\n'+items.map(x=>`• ${x.name} (Qty: ${x.qty})`).join('\n');
-        const msg=encodeURIComponent(text);
-        window.open(`https://wa.me/919239087045?text=${msg}`,'_blank');
-      });
+        // --- 4.1) Age-Gate Modal Logic ---
 
-      populate(); render();
-    })();
-  </script>
+        const ageGateModal = document.getElementById('age-gate-modal');
+        const mainContent = document.querySelector('main');
+        const body = document.body;
+
+        function checkAgeGate() {
+            const ageConfirmed = localStorage.getItem('pls_age_ok');
+
+            if (ageConfirmed === 'true') {
+                // If confirmed, hide the modal immediately
+                ageGateModal.classList.remove('visible');
+                body.classList.remove('gatelock');
+                mainContent.inert = false;
+                return true;
+            }
+
+            // Lock page content while modal is visible
+            mainContent.inert = true;
+            ageGateModal.classList.add('visible');
+            ageGateModal.focus(); // Trap focus
+
+            document.getElementById('age-confirm').addEventListener('click', () => {
+                localStorage.setItem('pls_age_ok', 'true');
+                ageGateModal.classList.remove('visible');
+                body.classList.remove('gatelock');
+                mainContent.inert = false;
+                initApp();
+            });
+
+            document.getElementById('age-deny').addEventListener('click', () => {
+                window.location.replace("https://www.google.com");
+            });
+
+            return false;
+        }
+
+        // --- 4.2) Open/Closed Status ---
+
+        function updateStatus() {
+            const now = new Date();
+            const hour = now.getHours();
+            const minute = now.getMinutes();
+            const statusTitle = document.getElementById('status-title');
+            const statusMessage = document.getElementById('status-message');
+            const currentTimeDisplay = document.getElementById('current-time-display');
+
+            const openHour = SHOP.hours.open;
+            const closeHour = SHOP.hours.close;
+
+            const isOpen = hour >= openHour && hour < closeHour;
+
+            currentTimeDisplay.textContent = `Current time: ${now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}`;
+
+            if (isOpen) {
+                statusTitle.textContent = "We are OPEN NOW";
+                statusTitle.style.color = 'var(--color-ok)';
+                statusMessage.innerHTML = `Closing at ${closeHour > 12 ? closeHour - 12 : closeHour}:00 PM`;
+            } else {
+                statusTitle.textContent = "We are CLOSED";
+                statusTitle.style.color = 'var(--color-error)';
+                statusMessage.innerHTML = `Opening tomorrow at ${openHour > 12 ? openHour - 12 : openHour}:00 AM`;
+            }
+
+            // Update every 60 seconds
+            const secondsUntilNextMinute = 60 - now.getSeconds();
+            setTimeout(updateStatus, secondsUntilNextMinute * 1000);
+        }
+
+        // --- 4.3) Owner UX Lock ---
+
+        const ownerLockPanel = document.getElementById('owner-panel-lock');
+        const ownerContentPanel = document.getElementById('owner-panel-content');
+        const productGrid = document.getElementById('product-grid');
+        const ownerUnlockForm = document.getElementById('owner-unlock-form');
+
+        function toggleOwnerPanel(unlocked) {
+            isOwnerUXUnlocked = unlocked;
+            localStorage.setItem('pls_owner_ok_v1', unlocked ? 'true' : 'false');
+
+            ownerLockPanel.style.display = unlocked ? 'none' : 'block';
+            ownerContentPanel.style.display = unlocked ? 'block' : 'none';
+
+            // Re-render products to show/hide edit buttons
+            renderProducts(window.currentProducts || []); // Use the cached product list
+            clearProductForm();
+        }
+
+        ownerUnlockForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const code = document.getElementById('owner-code').value;
+            if (code === OWNER_CODE_UX) {
+                toggleOwnerPanel(true);
+                showToast("Owner panel unlocked! (UX only)", 'brand');
+            } else {
+                showToast("Invalid Owner Code.", 'error');
+            }
+            document.getElementById('owner-code').value = '';
+        });
+
+        // --- 4.4 & 5) Firestore Products & Data Model ---
+
+        const productNamesDatalist = document.getElementById('product-names');
+
+        function renderProducts(products = []) {
+            window.currentProducts = products; // Cache for owner UX toggle
+            document.getElementById('loading-products').style.display = products.length === 0 ? 'block' : 'none';
+            productGrid.innerHTML = '';
+            productNamesDatalist.innerHTML = '';
+
+            products.forEach(product => {
+                // Update datalist for Order section
+                const option = document.createElement('option');
+                option.value = product.name;
+                productNamesDatalist.appendChild(option);
+
+                const card = document.createElement('div');
+                card.className = 'product-card card';
+                card.setAttribute('data-id', product.id);
+                card.id = `product-${product.id}`;
+
+                const imageUrl = (product.image && product.image.startsWith('http'))
+                    ? product.image
+                    : 'https://images.unsplash.com/photo-1574087130635-4673d3283280?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=160&h=160&fit=crop'; // Placeholder image
+
+                card.innerHTML = `
+                    <img src="${imageUrl}" alt="${product.name}" loading="lazy" height="160" width="100%">
+                    <h3>${product.name}</h3>
+                    <p class="badge badge-${product.available ? 'ok' : 'error'}">${product.available ? 'Available' : 'Out of stock'}</p>
+                    <p class="meta">${product.brand || 'N/A'} • ${product.category || 'N/A'} • ${product.size || 'N/A'} • ${product.abv || 'N/A'}</p>
+                    ${isOwnerUXUnlocked ? `
+                        <div class="product-actions">
+                            <button class="btn-secondary edit-product" data-id="${product.id}">Edit</button>
+                            <button class="btn-danger delete-product" data-id="${product.id}">Delete</button>
+                        </div>
+                    ` : ''}
+                `;
+                productGrid.appendChild(card);
+            });
+
+            // Attach event listeners for owner actions if unlocked
+            if (isOwnerUXUnlocked) {
+                productGrid.querySelectorAll('.edit-product').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const productId = e.target.getAttribute('data-id');
+                        const product = products.find(p => p.id === productId);
+                        if (product) loadProductForEdit(product);
+                    });
+                });
+                productGrid.querySelectorAll('.delete-product').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const productId = e.target.getAttribute('data-id');
+                        const product = products.find(p => p.id === productId);
+                        if (confirm(`Are you sure you want to delete product: ${product.name}? This requires owner Firebase Authentication.`)) {
+                            deleteProduct(productId);
+                        }
+                    });
+                });
+            }
+        }
+
+        // Firestore Listener
+        function setupProductListener() {
+            if (!db) return; // Skip if Firebase failed to initialize
+
+            const productsQuery = query(collection(db, "products"), orderBy("name"));
+            onSnapshot(productsQuery, (snapshot) => {
+                const products = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                renderProducts(products);
+            }, (error) => {
+                console.error("Error setting up product listener:", error);
+                document.getElementById('loading-products').textContent = 'Error loading products. Check console/Firebase config.';
+            });
+        }
+
+        // --- 5) Owner Panel Form Logic & CRUD Operations ---
+
+        const productForm = document.getElementById('product-form');
+        const productIdInput = document.getElementById('product-id');
+        const productNameInput = document.getElementById('product-name');
+        const productBrandInput = document.getElementById('product-brand');
+        const productCategoryInput = document.getElementById('product-category');
+        const productSizeInput = document.getElementById('product-size');
+        const productAbvInput = document.getElementById('product-abv');
+        const productImageInput = document.getElementById('product-image');
+        const productAvailableInput = document.getElementById('product-available');
+        const productSubmitBtn = document.getElementById('product-submit-btn');
+        const productDeleteBtn = document.getElementById('product-delete-btn');
+
+        function clearProductForm() {
+            productForm.reset();
+            productIdInput.value = '';
+            productSubmitBtn.textContent = 'Add Product';
+            productDeleteBtn.style.display = 'none';
+            productAvailableInput.checked = true; // Default to available
+        }
+
+        function loadProductForEdit(product) {
+            productNameInput.value = product.name;
+            productBrandInput.value = product.brand || '';
+            productCategoryInput.value = product.category || '';
+            productSizeInput.value = product.size || '';
+            productAbvInput.value = product.abv || '';
+            productImageInput.value = product.image || '';
+            productAvailableInput.checked = product.available;
+            productIdInput.value = product.id;
+            productSubmitBtn.textContent = 'Update Product';
+            productDeleteBtn.style.display = 'inline-block';
+            window.location.hash = '#owner'; // Scroll to owner panel
+        }
+
+        async function saveProduct(e) {
+            e.preventDefault();
+
+            if (!db) return;
+
+            if (!isOwnerAuthenticated) {
+                showToast("Write operation failed: Owner authentication required by Firebase Rules. Try logging in or check rules.", 'error');
+                return;
+            }
+
+            const isUpdate = !!productIdInput.value;
+
+            // Basic image URL validation
+            const imageUrl = productImageInput.value.trim();
+            const validImageUrl = (imageUrl.length > 0 && imageUrl.startsWith('http')) ? imageUrl : null;
+
+            const data = {
+                name: productNameInput.value.trim(),
+                brand: productBrandInput.value.trim() || null,
+                category: productCategoryInput.value.trim() || null,
+                size: productSizeInput.value.trim() || null,
+                abv: productAbvInput.value.trim() || null,
+                image: validImageUrl,
+                available: productAvailableInput.checked,
+            };
+
+            const collectionRef = collection(db, "products");
+
+            try {
+                if (isUpdate) {
+                    const docRef = doc(db, "products", productIdInput.value);
+                    await setDoc(docRef, { ...data, id: productIdInput.value });
+                    showToast(`Product "${data.name}" updated successfully!`, 'ok');
+                } else {
+                    // Create document first to get ID, then update it with ID field (for consistency and easy lookup)
+                    const docRef = await addDoc(collectionRef, data);
+                    await setDoc(docRef, { ...data, id: docRef.id });
+                    showToast(`Product "${data.name}" added successfully!`, 'ok');
+                }
+                clearProductForm();
+            } catch (error) {
+                console.error("Error saving product:", error);
+                showToast(`Error saving product: ${error.message}. Check network and Firebase rules.`, 'error');
+            }
+        }
+
+        async function deleteProduct(id) {
+            if (!db) return;
+
+            if (!isOwnerAuthenticated) {
+                showToast("Delete operation failed: Owner authentication required by Firebase Rules.", 'error');
+                return;
+            }
+
+            try {
+                await deleteDoc(doc(db, "products", id));
+                showToast("Product deleted successfully!", 'ok');
+                if (productIdInput.value === id) {
+                    clearProductForm();
+                }
+            } catch (error) {
+                console.error("Error deleting product:", error);
+                showToast(`Error deleting product: ${error.message}`, 'error');
+            }
+        }
+
+        // Attach listeners for owner form
+        productForm.addEventListener('submit', saveProduct);
+        document.getElementById('product-clear-btn').addEventListener('click', clearProductForm);
+        productDeleteBtn.addEventListener('click', () => {
+            if (productIdInput.value && confirm('Are you sure you want to delete the product currently loaded in the form?')) {
+                deleteProduct(productIdInput.value);
+            }
+        });
+
+
+        // --- 6) Firebase Auth & Security Status Check ---
+
+        function setupAuth() {
+            if (!auth) return;
+
+            // Attempt Anonymous sign-in for read access
+            signInAnonymously(auth).catch(error => {
+                console.error("Anonymous Sign-in failed:", error);
+                showToast("Warning: Could not sign in anonymously. Realtime product updates may fail.", 'error');
+            });
+
+            // Check Auth state and write permission
+            onAuthStateChanged(auth, async (user) => {
+                currentAuthUser = user;
+                const securityStatus = document.getElementById('owner-security-status');
+
+                if (!securityStatus) return; // Only relevant if owner panel exists
+
+                if (user) {
+                    // For strict rules (user must be owner@example.com), isAnonymous check is a decent proxy:
+                    if (!user.isAnonymous && user.email) {
+                        isOwnerAuthenticated = true;
+                        securityStatus.textContent = `Owner Logged In: ${user.email}. Writes should succeed.`;
+                        securityStatus.style.color = 'var(--color-ok)';
+                    } else if (user.isAnonymous) {
+                         // We enable isOwnerAuthenticated for anonymous users so the owner can add products
+                         // if their Firebase rules are permissive (e.g., during setup/testing).
+                         // Strict security requires a non-anonymous login (email/password).
+                        isOwnerAuthenticated = true;
+                        securityStatus.textContent = "Anonymous Logged In. Writes will succeed if temporary/permissive rules are active (e.g., testing).";
+                        securityStatus.style.color = 'var(--color-accent)';
+                    } else {
+                        // User logged in via non-anonymous method but no email (e.g., custom token without email claim)
+                         isOwnerAuthenticated = true; // Assume non-anonymous user is intended owner unless restricted by rules
+                        securityStatus.textContent = "Non-Anonymous User Logged In. Writes depend on strict rules matching this user ID/claims.";
+                        securityStatus.style.color = 'var(--color-ok)';
+                    }
+                } else {
+                    isOwnerAuthenticated = false;
+                    securityStatus.textContent = "No user logged in. All write operations will fail due to strict Firestore rules.";
+                    securityStatus.style.color = 'var(--color-error)';
+                }
+            });
+        }
+
+
+        // --- 4.5) Order List (LocalStorage) Logic ---
+
+        const orderListContainer = document.getElementById('order-list-content');
+        const addOrderForm = document.getElementById('add-order-form');
+        const orderItemNameInput = document.getElementById('order-item-name');
+        const orderItemQtyInput = document.getElementById('order-item-qty');
+        const sendWhatsappBtn = document.getElementById('send-whatsapp-order');
+        const clearOrderBtn = document.getElementById('clear-order');
+        const emptyOrderMessage = document.getElementById('empty-order-message');
+
+        let currentOrder = [];
+
+        function loadOrderFromStorage() {
+            const stored = localStorage.getItem('pls_order_list');
+            currentOrder = stored ? JSON.parse(stored) : [];
+            renderOrderList();
+        }
+
+        function saveOrderToStorage() {
+            localStorage.setItem('pls_order_list', JSON.stringify(currentOrder));
+            renderOrderList();
+        }
+
+        function renderOrderList() {
+            orderListContainer.innerHTML = '';
+            if (currentOrder.length === 0) {
+                orderListContainer.appendChild(emptyOrderMessage);
+                emptyOrderMessage.style.display = 'block';
+                sendWhatsappBtn.disabled = true;
+                return;
+            }
+            emptyOrderMessage.style.display = 'none';
+            sendWhatsappBtn.disabled = false;
+
+            currentOrder.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'order-item';
+                itemDiv.innerHTML = `
+                    <span aria-live="polite">${item.qty} x ${item.name}</span>
+                    <div class="order-qty-control">
+                        <button data-index="${index}" data-action="decrement" aria-label="Decrement quantity of ${item.name}">-</button>
+                        <span style="min-width: 15px; text-align: center;">${item.qty}</span>
+                        <button data-index="${index}" data-action="increment" aria-label="Increment quantity of ${item.name}">+</button>
+                        <button data-index="${index}" data-action="remove" class="btn-danger" style="margin-left: 10px; background-color: var(--color-error);" aria-label="Remove ${item.name} from list">X</button>
+                    </div>
+                `;
+                orderListContainer.appendChild(itemDiv);
+            });
+
+            // Attach listeners
+            orderListContainer.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', handleOrderAction);
+            });
+        }
+
+        function handleOrderAction(e) {
+            const index = parseInt(e.target.getAttribute('data-index'));
+            const action = e.target.getAttribute('data-action');
+
+            if (isNaN(index) || index < 0 || index >= currentOrder.length) return;
+
+            if (action === 'increment') {
+                currentOrder[index].qty++;
+                saveOrderToStorage();
+            } else if (action === 'decrement') {
+                if (currentOrder[index].qty > 1) {
+                    currentOrder[index].qty--;
+                    saveOrderToStorage();
+                } else {
+                    // If qty is 1, decrement should behave like remove
+                    currentOrder.splice(index, 1);
+                    saveOrderToStorage();
+                    showToast(`Removed item from list.`, 'muted');
+                }
+            } else if (action === 'remove') {
+                currentOrder.splice(index, 1);
+                saveOrderToStorage();
+                showToast(`Removed item from list.`, 'muted');
+            }
+        }
+
+        addOrderForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = orderItemNameInput.value.trim();
+            const qty = parseInt(orderItemQtyInput.value);
+
+            if (name && qty >= 1) {
+                // Check if item already exists
+                const existing = currentOrder.find(item => item.name.toLowerCase() === name.toLowerCase());
+                if (existing) {
+                    existing.qty += qty;
+                } else {
+                    currentOrder.push({ name, qty });
+                }
+
+                saveOrderToStorage();
+                orderItemNameInput.value = '';
+                orderItemQtyInput.value = 1;
+                showToast(`Added ${qty} x ${name} to list.`, 'brand');
+            }
+        });
+
+        clearOrderBtn.addEventListener('click', () => {
+            if (confirm('Clear your entire order list?')) {
+                currentOrder = [];
+                saveOrderToStorage();
+                showToast("Order list cleared.", 'muted');
+            }
+        });
+
+        sendWhatsappBtn.addEventListener('click', () => {
+            if (currentOrder.length === 0) {
+                showToast("Order list is empty!", 'error');
+                return;
+            }
+
+            const listText = currentOrder.map(item => `* ${item.qty} x ${item.name}`).join('\n');
+            const message = `Hello Pradhan Liquor Shop,\n\nI would like to enquire about the following list for in-store purchase:\n\n${listText}\n\nThanks!`;
+            const waLink = `https://wa.me/${SHOP.whatsapp}?text=${encodeURIComponent(message)}`;
+            window.open(waLink, '_blank');
+        });
+
+        // --- 7) General Initialization & Setup ---
+
+        function initApp() {
+            // Check if age gate passed, if not, skip initialization
+            if (localStorage.getItem('pls_age_ok') !== 'true') return;
+
+            // 1. Setup Contacts
+            document.getElementById('whatsapp-link').href = `https://wa.me/${SHOP.whatsapp}`;
+            document.getElementById('maps-link').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SHOP.mapsQuery)}`;
+
+            document.getElementById('mobile-call-btn').onclick = () => window.open(`tel:${SHOP.phone}`, '_self');
+            document.getElementById('mobile-whatsapp-btn').onclick = () => window.open(`https://wa.me/${SHOP.whatsapp}`, '_blank');
+            document.getElementById('mobile-directions-btn').onclick = () => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SHOP.mapsQuery)}`, '_blank');
+
+
+            // 2. Setup Map Embed
+            const mapIframe = document.getElementById('map-iframe');
+            // Using the place search query as the q parameter for generic embed map for location.
+            const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(SHOP.mapsQuery)}&output=embed&z=15`;
+            mapIframe.src = mapSrc;
+
+            // 3. Status Update
+            updateStatus();
+
+            // 4. Owner Panel State
+            toggleOwnerPanel(isOwnerUXUnlocked);
+
+            // 5. Firebase Listener and Auth
+            setupAuth();
+            setupProductListener();
+
+            // 6. Order List
+            loadOrderFromStorage();
+
+            // 7. Footer Year
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // 8. Mobile Menu Toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            menuToggle.addEventListener('click', () => {
+                const isVisible = mobileMenu.style.display === 'flex';
+                mobileMenu.style.display = isVisible ? 'none' : 'flex';
+                menuToggle.setAttribute('aria-expanded', !isVisible);
+            });
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.style.display = 'none';
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                });
+            });
+        }
+
+        // Global startup sequence
+        document.addEventListener('DOMContentLoaded', () => {
+            if (checkAgeGate()) {
+                // If age confirmed immediately (via localStorage), run initApp
+                initApp();
+            }
+            // Otherwise, initApp is called by age-confirm button click
+        });
+
+
+    </script>
 </body>
 </html>
