@@ -560,10 +560,10 @@
     <!-- Inert polyfill for browsers that don't support it -->
     <script src="https://unpkg.com/wicg-inert@0.4.1/dist/inert.min.js"></script>
 </head>
-<body class="gatelock">
+<body>
 
     <!-- Age Gate Modal -->
-    <div id="age-gate-modal" class="visible" role="dialog" aria-modal="true" aria-labelledby="age-gate-title" tabindex="-1">
+    <div id="age-gate-modal" role="dialog" aria-modal="true" aria-labelledby="age-gate-title" tabindex="-1">
         <div class="age-gate-content">
             <h2 id="age-gate-title">Verify Your Age</h2>
             <p>You must be of legal drinking age (as per state rules) to view this website.</p>
@@ -1102,10 +1102,11 @@
             const productsQuery = query(collection(db, "products"), orderBy("name"));
             onSnapshot(productsQuery, (snapshot) => {
                 const products = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                console.log("Products fetched from Firebase:", products); // Added log
                 renderProducts(products);
             }, (error) => {
                 console.error("Error setting up product listener:", error);
-                document.getElementById('loading-products').textContent = 'Error loading products. Check console/Firebase config.';
+                document.getElementById('loading-products').textContent = `Error loading products: ${error.message}. Check console/Firebase config.`; // Added error message
             });
         }
 
